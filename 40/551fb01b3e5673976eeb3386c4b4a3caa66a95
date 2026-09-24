@@ -1,0 +1,24 @@
+Examples/Shared/ExampleApp.swift
+  h_a1fa5c19d60fed 4-22,25-26,29-36
+Sources/DesignSystem/DesignSystem.swift
+  h_a1fa5c19d60fed 1
+Sources/DesignSystem/Spacing.swift
+  h_a1fa5c19d60fed 1-24
+Sources/DesignSystemTestSupport/DesignSystemTestSupport.swift
+  h_a1fa5c19d60fed 1
+Sources/DesignSystemTestSupport/SpacingValidation.swift
+  h_a1fa5c19d60fed 1-22
+Tests/DesignSystemTests/SpacingTests.swift
+  h_a1fa5c19d60fed 1-120
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "40551fb01b3e5673976eeb3386c4b4a3caa66a95",
+  "prompts": {},
+  "humans": {
+    "h_a1fa5c19d60fed": {
+      "author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
