@@ -1,0 +1,218 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		000000000000000000000020 /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* ExampleApp.swift */; };
+		000000000000000000000021 /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* ExampleApp.swift */; };
+		000000000000000000000022 /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* ExampleApp.swift */; };
+		000000000000000000000023 /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* ExampleApp.swift */; };
+		000000000000000000000024 /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* ExampleApp.swift */; };
+		000000000000000000000030 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 000000000000000000000130 /* DesignSystem */; };
+		000000000000000000000031 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 000000000000000000000131 /* DesignSystem */; };
+		000000000000000000000032 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 000000000000000000000132 /* DesignSystem */; };
+		000000000000000000000033 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 000000000000000000000133 /* DesignSystem */; };
+		000000000000000000000034 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 000000000000000000000134 /* DesignSystem */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		000000000000000000000005 /* ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleApp.swift; sourceTree = "<group>"; };
+		000000000000000000000010 /* iOSExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000000000000000011 /* macOSExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macOSExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000000000000000012 /* tvOSExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tvOSExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000000000000000013 /* watchOSExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = watchOSExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000000000000000014 /* visionOSExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = visionOSExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		000000000000000000000040 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000030 /* DesignSystem in Frameworks */,); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000041 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000031 /* DesignSystem in Frameworks */,); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000042 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000032 /* DesignSystem in Frameworks */,); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000043 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000033 /* DesignSystem in Frameworks */,); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000044 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000034 /* DesignSystem in Frameworks */,); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		000000000000000000000002 = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000003 /* Shared */,
+				000000000000000000000004 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		000000000000000000000003 /* Shared */ = {
+			isa = PBXGroup;
+			children = (000000000000000000000005 /* ExampleApp.swift */,);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		000000000000000000000004 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000010 /* iOSExample.app */,
+				000000000000000000000011 /* macOSExample.app */,
+				000000000000000000000012 /* tvOSExample.app */,
+				000000000000000000000013 /* watchOSExample.app */,
+				000000000000000000000014 /* visionOSExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		000000000000000000000070 /* iOSExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000000000000000000000111 /* Build configuration list for PBXNativeTarget "iOSExample" */;
+			buildPhases = (000000000000000000000060 /* Sources */, 000000000000000000000040 /* Frameworks */, 000000000000000000000050 /* Resources */,);
+			buildRules = ();
+			dependencies = ();
+			name = iOSExample;
+			packageProductDependencies = (000000000000000000000130 /* DesignSystem */,);
+			productName = iOSExample;
+			productReference = 000000000000000000000010 /* iOSExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		000000000000000000000071 /* macOSExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000000000000000000000112 /* Build configuration list for PBXNativeTarget "macOSExample" */;
+			buildPhases = (000000000000000000000061 /* Sources */, 000000000000000000000041 /* Frameworks */, 000000000000000000000051 /* Resources */,);
+			buildRules = ();
+			dependencies = ();
+			name = macOSExample;
+			packageProductDependencies = (000000000000000000000131 /* DesignSystem */,);
+			productName = macOSExample;
+			productReference = 000000000000000000000011 /* macOSExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		000000000000000000000072 /* tvOSExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000000000000000000000113 /* Build configuration list for PBXNativeTarget "tvOSExample" */;
+			buildPhases = (000000000000000000000062 /* Sources */, 000000000000000000000042 /* Frameworks */, 000000000000000000000052 /* Resources */,);
+			buildRules = ();
+			dependencies = ();
+			name = tvOSExample;
+			packageProductDependencies = (000000000000000000000132 /* DesignSystem */,);
+			productName = tvOSExample;
+			productReference = 000000000000000000000012 /* tvOSExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		000000000000000000000073 /* watchOSExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000000000000000000000114 /* Build configuration list for PBXNativeTarget "watchOSExample" */;
+			buildPhases = (000000000000000000000063 /* Sources */, 000000000000000000000043 /* Frameworks */, 000000000000000000000053 /* Resources */,);
+			buildRules = ();
+			dependencies = ();
+			name = watchOSExample;
+			packageProductDependencies = (000000000000000000000133 /* DesignSystem */,);
+			productName = watchOSExample;
+			productReference = 000000000000000000000013 /* watchOSExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		000000000000000000000074 /* visionOSExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000000000000000000000115 /* Build configuration list for PBXNativeTarget "visionOSExample" */;
+			buildPhases = (000000000000000000000064 /* Sources */, 000000000000000000000044 /* Frameworks */, 000000000000000000000054 /* Resources */,);
+			buildRules = ();
+			dependencies = ();
+			name = visionOSExample;
+			packageProductDependencies = (000000000000000000000134 /* DesignSystem */,);
+			productName = visionOSExample;
+			productReference = 000000000000000000000014 /* visionOSExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		000000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					000000000000000000000070 = {CreatedOnToolsVersion = 27.0;};
+					000000000000000000000071 = {CreatedOnToolsVersion = 27.0;};
+					000000000000000000000072 = {CreatedOnToolsVersion = 27.0;};
+					000000000000000000000073 = {CreatedOnToolsVersion = 27.0;};
+					000000000000000000000074 = {CreatedOnToolsVersion = 27.0;};
+				};
+			};
+			buildConfigurationList = 000000000000000000000110 /* Build configuration list for PBXProject "DesignSystemExamples" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base,);
+			mainGroup = 000000000000000000000002;
+			packageReferences = (000000000000000000000120 /* XCLocalSwiftPackageReference ".." */,);
+			productRefGroup = 000000000000000000000004 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				000000000000000000000070 /* iOSExample */,
+				000000000000000000000071 /* macOSExample */,
+				000000000000000000000072 /* tvOSExample */,
+				000000000000000000000073 /* watchOSExample */,
+				000000000000000000000074 /* visionOSExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		000000000000000000000050 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000051 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000052 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000053 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000054 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXBuildConfiguration section */
+		000000000000000000000080 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CODE_SIGNING_ALLOWED = NO; ONLY_ACTIVE_ARCH = YES; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; }; name = Debug; };
+		000000000000000000000081 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CODE_SIGNING_ALLOWED = NO; ONLY_ACTIVE_ARCH = YES; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; }; name = Release; };
+		000000000000000000000090 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGNING_ALLOWED = NO; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 27.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.designsystem.ios; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = iphoneos; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx"; SUPPORTS_MACCATALYST = YES; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = "1,2"; }; name = Debug; };
+		000000000000000000000091 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGNING_ALLOWED = NO; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 27.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.designsystem.ios; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = iphoneos; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx"; SUPPORTS_MACCATALYST = YES; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = "1,2"; }; name = Release; };
+		000000000000000000000092 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGNING_ALLOWED = NO; GENERATE_INFOPLIST_FILE = YES; MACOSX_DEPLOYMENT_TARGET = 27.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.designsystem.macos; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = macosx; SUPPORTED_PLATFORMS = macosx; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; }; name = Debug; };
+		000000000000000000000093 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGNING_ALLOWED = NO; GENERATE_INFOPLIST_FILE = YES; MACOSX_DEPLOYMENT_TARGET = 27.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.designsystem.macos; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = macosx; SUPPORTED_PLATFORMS = macosx; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; }; name = Release; };
+		000000000000000000000094 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGNING_ALLOWED = NO; GENERATE_INFOPLIST_FILE = YES; PRODUCT_BUNDLE_IDENTIFIER = com.example.designsystem.tvos; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = appletvos; SUPPORTED_PLATFORMS = "appletvos appletvsimulator"; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = 3; TVOS_DEPLOYMENT_TARGET = 27.0; }; name = Debug; };
+		000000000000000000000095 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGNING_ALLOWED = NO; GENERATE_INFOPLIST_FILE = YES; PRODUCT_BUNDLE_IDENTIFIER = com.example.designsystem.tvos; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = appletvos; SUPPORTED_PLATFORMS = "appletvos appletvsimulator"; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = 3; TVOS_DEPLOYMENT_TARGET = 27.0; }; name = Release; };
+		000000000000000000000096 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGNING_ALLOWED = NO; GENERATE_INFOPLIST_FILE = YES; PRODUCT_BUNDLE_IDENTIFIER = com.example.designsystem.watchos; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = watchos; SUPPORTED_PLATFORMS = "watchos watchsimulator"; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = 4; WATCHOS_DEPLOYMENT_TARGET = 27.0; }; name = Debug; };
+		000000000000000000000097 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGNING_ALLOWED = NO; GENERATE_INFOPLIST_FILE = YES; PRODUCT_BUNDLE_IDENTIFIER = com.example.designsystem.watchos; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = watchos; SUPPORTED_PLATFORMS = "watchos watchsimulator"; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = 4; WATCHOS_DEPLOYMENT_TARGET = 27.0; }; name = Release; };
+		000000000000000000000098 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGNING_ALLOWED = NO; GENERATE_INFOPLIST_FILE = YES; PRODUCT_BUNDLE_IDENTIFIER = com.example.designsystem.visionos; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = xros; SUPPORTED_PLATFORMS = "xros xrsimulator"; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = 7; XROS_DEPLOYMENT_TARGET = 27.0; }; name = Debug; };
+		000000000000000000000099 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGNING_ALLOWED = NO; GENERATE_INFOPLIST_FILE = YES; PRODUCT_BUNDLE_IDENTIFIER = com.example.designsystem.visionos; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = xros; SUPPORTED_PLATFORMS = "xros xrsimulator"; SWIFT_STRICT_CONCURRENCY = complete; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = 7; XROS_DEPLOYMENT_TARGET = 27.0; }; name = Release; };
+/* End PBXBuildConfiguration section */
+
+/* Begin PBXSourcesBuildPhase section */
+		000000000000000000000060 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000020 /* ExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000061 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000021 /* ExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000062 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000022 /* ExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000063 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000023 /* ExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000064 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000024 /* ExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCConfigurationList section */
+		000000000000000000000110 /* Build configuration list for PBXProject "DesignSystemExamples" */ = {isa = XCConfigurationList; buildConfigurations = (000000000000000000000080 /* Debug */, 000000000000000000000081 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		000000000000000000000111 /* Build configuration list for PBXNativeTarget "iOSExample" */ = {isa = XCConfigurationList; buildConfigurations = (000000000000000000000090 /* Debug */, 000000000000000000000091 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		000000000000000000000112 /* Build configuration list for PBXNativeTarget "macOSExample" */ = {isa = XCConfigurationList; buildConfigurations = (000000000000000000000092 /* Debug */, 000000000000000000000093 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		000000000000000000000113 /* Build configuration list for PBXNativeTarget "tvOSExample" */ = {isa = XCConfigurationList; buildConfigurations = (000000000000000000000094 /* Debug */, 000000000000000000000095 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		000000000000000000000114 /* Build configuration list for PBXNativeTarget "watchOSExample" */ = {isa = XCConfigurationList; buildConfigurations = (000000000000000000000096 /* Debug */, 000000000000000000000097 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		000000000000000000000115 /* Build configuration list for PBXNativeTarget "visionOSExample" */ = {isa = XCConfigurationList; buildConfigurations = (000000000000000000000098 /* Debug */, 000000000000000000000099 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		000000000000000000000120 /* XCLocalSwiftPackageReference ".." */ = {isa = XCLocalSwiftPackageReference; relativePath = ..; };
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		000000000000000000000130 /* DesignSystem */ = {isa = XCSwiftPackageProductDependency; package = 000000000000000000000120 /* XCLocalSwiftPackageReference ".." */; productName = DesignSystem; };
+		000000000000000000000131 /* DesignSystem */ = {isa = XCSwiftPackageProductDependency; package = 000000000000000000000120 /* XCLocalSwiftPackageReference ".." */; productName = DesignSystem; };
+		000000000000000000000132 /* DesignSystem */ = {isa = XCSwiftPackageProductDependency; package = 000000000000000000000120 /* XCLocalSwiftPackageReference ".." */; productName = DesignSystem; };
+		000000000000000000000133 /* DesignSystem */ = {isa = XCSwiftPackageProductDependency; package = 000000000000000000000120 /* XCLocalSwiftPackageReference ".." */; productName = DesignSystem; };
+		000000000000000000000134 /* DesignSystem */ = {isa = XCSwiftPackageProductDependency; package = 000000000000000000000120 /* XCLocalSwiftPackageReference ".." */; productName = DesignSystem; };
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 000000000000000000000001 /* Project object */;
+}
