@@ -1,0 +1,52 @@
+Examples/DesignSystemExamples.xcodeproj/xcshareddata/xcschemes/watchOSExample.xcscheme
+  s_4339012933bba5::t_fb3e9538becdf1 1-23
+Examples/DesignSystemExamples.xcodeproj/xcshareddata/xcschemes/visionOSExample.xcscheme
+  s_4339012933bba5::t_fb3e9538becdf1 1-23
+Sources/DesignSystem/DesignSystem.swift
+  s_4339012933bba5::t_82c5b93ca3dcdf 1
+.gitignore
+  h_a1fa5c19d60fed 63
+Tests/DesignSystemTests/PackageImportTests.swift
+  s_4339012933bba5::t_c40b5de6cb07fc 1-6
+Sources/DesignSystemTestSupport/DesignSystemTestSupport.swift
+  s_4339012933bba5::t_82c5b93ca3dcdf 1
+  s_4339012933bba5::t_995e934339444c 2
+.github/workflows/ci.yml
+  s_4339012933bba5::t_b8afe9f2abc224 1-43
+Examples/DesignSystemExamples.xcodeproj/xcshareddata/xcschemes/iOSExample.xcscheme
+  s_4339012933bba5::t_fb3e9538becdf1 1-23
+Examples/Shared/ExampleApp.swift
+  s_4339012933bba5::t_8af3d55971dda5 1-11
+Examples/DesignSystemExamples.xcodeproj/xcshareddata/xcschemes/macOSExample.xcscheme
+  s_4339012933bba5::t_fb3e9538becdf1 1-23
+Package.swift
+  s_4339012933bba5::t_f1d04d8aa1f561 29
+  s_4339012933bba5::t_995e934339444c 1-5,7-28,30-31
+  s_4339012933bba5::t_c11e2a0b655f6d 6
+Examples/DesignSystemExamples.xcodeproj/project.pbxproj
+  s_4339012933bba5::t_5f45c760eb1e6d 174-175
+  s_4339012933bba5::t_8af3d55971dda5 1-173,176-218
+Examples/DesignSystemExamples.xcodeproj/xcshareddata/xcschemes/tvOSExample.xcscheme
+  s_4339012933bba5::t_fb3e9538becdf1 1-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1b29a9b9b842dc225e09b9817cc4d736f075d678",
+  "prompts": {},
+  "humans": {
+    "h_a1fa5c19d60fed": {
+      "author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  },
+  "sessions": {
+    "s_4339012933bba5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0d327-bf03-7f71-8517-92d5b710bead",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
