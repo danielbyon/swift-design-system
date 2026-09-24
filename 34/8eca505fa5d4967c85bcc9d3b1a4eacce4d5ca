@@ -1,0 +1,29 @@
+Sources/DesignSystemTestSupport/DesignSystemTestSupport.swift
+  s_736b1ab03ca0b7::t_65a2a810850c32 2-18
+Examples/Shared/ExampleApp.swift
+  s_736b1ab03ca0b7::t_65a2a810850c32 4-24,27-28,31-39
+Makefile
+  s_736b1ab03ca0b7::t_08a530d0c1f671 1-4
+Sources/DesignSystem/DesignSystem.swift
+  s_736b1ab03ca0b7::t_65a2a810850c32 1-13
+Tests/DesignSystemTests/SpacingCapabilityTests.swift
+  s_736b1ab03ca0b7::t_e8c6d05d390046 130
+  s_736b1ab03ca0b7::t_08a530d0c1f671 1-33,52-129,131-146,148
+  s_736b1ab03ca0b7::t_0d7b4a08d30adf 34-51,147
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "348eca505fa5d4967c85bcc9d3b1a4eacce4d5ca",
+  "prompts": {},
+  "sessions": {
+    "s_736b1ab03ca0b7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0d44d-5a13-7dd1-9d85-8aa19816f5cf",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
