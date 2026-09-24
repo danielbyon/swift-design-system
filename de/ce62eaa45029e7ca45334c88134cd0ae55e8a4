@@ -1,0 +1,19 @@
+Examples/DesignSystemExamples.xcodeproj/project.pbxproj
+  s_4339012933bba5::t_fa062ba9664e8b 175,182-183
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dece62eaa45029e7ca45334c88134cd0ae55e8a4",
+  "prompts": {},
+  "sessions": {
+    "s_4339012933bba5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0d327-bf03-7f71-8517-92d5b710bead",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
