@@ -57,7 +57,7 @@ private enum ValidationSpacingToken: SpacingToken {
     case finiteAfter
 }
 
-private struct ValidationSpacingDesignSystem: SpacingDesignSystem {
+private final class ValidationSpacingDesignSystem: SpacingDesignSystem {
     typealias Spacing = ValidationSpacingToken
 
     private let resolvedTokenDescriptions = Mutex<[String]>([])
