@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: Package and platform smoke builds
+    runs-on: xcode-27
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Resolve Swift package
+        run: swift package resolve
+
+      - name: Test package import wiring
+        run: swift test
+
+      - name: Build iOS and iPadOS example
+        run: xcodebuild -project Examples/DesignSystemExamples.xcodeproj -scheme iOSExample -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
+
+      - name: Build macOS example
+        run: xcodebuild -project Examples/DesignSystemExamples.xcodeproj -scheme macOSExample -destination 'generic/platform=macOS' CODE_SIGNING_ALLOWED=NO build
+
+      - name: Build tvOS example
+        run: xcodebuild -project Examples/DesignSystemExamples.xcodeproj -scheme tvOSExample -destination 'generic/platform=tvOS Simulator' CODE_SIGNING_ALLOWED=NO build
+
+      - name: Build watchOS example
+        run: xcodebuild -project Examples/DesignSystemExamples.xcodeproj -scheme watchOSExample -destination 'generic/platform=watchOS Simulator' CODE_SIGNING_ALLOWED=NO build
+
+      - name: Build visionOS example
+        run: xcodebuild -project Examples/DesignSystemExamples.xcodeproj -scheme visionOSExample -destination 'generic/platform=visionOS Simulator' CODE_SIGNING_ALLOWED=NO build
+
+      - name: Build Mac Catalyst example
+        run: xcodebuild -project Examples/DesignSystemExamples.xcodeproj -scheme iOSExample -destination 'generic/platform=macOS,variant=Mac Catalyst' CODE_SIGNING_ALLOWED=NO build
