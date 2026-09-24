@@ -69,7 +69,7 @@ private final class ValidationSpacingDesignSystem: SpacingDesignSystem {
     func spacing(for token: Spacing) -> CGFloat {
         resolvedTokenDescriptions.withLock { $0.append(String(describing: token)) }
 
-        switch token {
+        return switch token {
         case .finiteBefore:
             -2
         case .positiveInfinity:
