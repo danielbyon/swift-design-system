@@ -1,0 +1,19 @@
+Tests/DesignSystemTests/SpacingCapabilityTests.swift
+  s_736b1ab03ca0b7::t_012e213caf49cc 72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d8772aaaad95e301f47f6c7053586be1caa9a218",
+  "prompts": {},
+  "sessions": {
+    "s_736b1ab03ca0b7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0d44d-5a13-7dd1-9d85-8aa19816f5cf",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
