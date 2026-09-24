@@ -1,0 +1,38 @@
+Sources/DesignSystem/Color.swift
+  s_a0cf9ef4f4a469::t_bafc5d02aee5fd 38,43-92,102,107-108,116-117,122,126-129,189-208,244
+  s_a0cf9ef4f4a469::t_95355906d6ab01 1-34,39-42,93-101,103-106,109-115,118-121,123-125,130-188,209-243,245-246
+  s_a0cf9ef4f4a469::t_b8a0e3b5869063 35-37
+Sources/DesignSystem/PlatformColor.swift
+  s_a0cf9ef4f4a469::t_95355906d6ab01 1-25
+Examples/Shared/ExampleApp.swift
+  s_a0cf9ef4f4a469::t_75f93c180fcf19 10-20,22-42,66-67,69,71-72
+Sources/DesignSystemTestSupport/DesignSystemTestSupport.swift
+  s_a0cf9ef4f4a469::t_75f93c180fcf19 2,26-56,59-63
+  s_a0cf9ef4f4a469::t_51026645845d3c 5-10,57-58
+  s_a0cf9ef4f4a469::t_477f1435c09403 64-65
+Tests/DesignSystemTests/ColorCapabilityTests.swift
+  s_a0cf9ef4f4a469::t_37ea0baa66ada8 185-186
+  s_a0cf9ef4f4a469::t_14863bebc0743a 162-176
+  s_a0cf9ef4f4a469::t_75f93c180fcf19 27-32,34,36-40,42-43,86-103,105,107,109-110
+  s_a0cf9ef4f4a469::t_b6c789fd0433c2 1-2,4,6-17,19-22,25,41,44-85,106,108,111-123,126-127,130-131,134-161,177-181,184,188,195-219
+  s_a0cf9ef4f4a469::t_b3d2c5f57dfef1 182-183,187,189-194
+  s_a0cf9ef4f4a469::t_5d4646c22e604f 23-24,26,33,124-125,128-129,132-133
+  s_a0cf9ef4f4a469::t_3201d3cbf7a7c3 3
+  s_a0cf9ef4f4a469::t_94666285454840 5,18,35,104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d6be815489463ffa3abbe1fd57fe44228ec0e8a7",
+  "prompts": {},
+  "sessions": {
+    "s_a0cf9ef4f4a469": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0d508-3bdf-7542-b7c7-d18f91a3c809",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
