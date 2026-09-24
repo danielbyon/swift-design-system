@@ -1,0 +1,21 @@
+Sources/DesignSystemTestSupport/DesignSystemTestSupport.swift
+  s_a0cf9ef4f4a469::t_1275274d50721e 5,47
+Sources/DesignSystem/Color.swift
+  s_a0cf9ef4f4a469::t_1275274d50721e 163-166,216
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "905fdb172a0b9ac34f803f84309fa6f1c301fc56",
+  "prompts": {},
+  "sessions": {
+    "s_a0cf9ef4f4a469": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0d508-3bdf-7542-b7c7-d18f91a3c809",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
