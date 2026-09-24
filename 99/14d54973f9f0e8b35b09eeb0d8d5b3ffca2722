@@ -1,0 +1,20 @@
+.codegraph/.gitignore
+  h_a1fa5c19d60fed 1-5
+.gitignore
+  h_a1fa5c19d60fed 30
+.serena/.gitignore
+  h_a1fa5c19d60fed 1-2
+.serena/project.yml
+  h_a1fa5c19d60fed 1-167
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9914d54973f9f0e8b35b09eeb0d8d5b3ffca2722",
+  "prompts": {},
+  "humans": {
+    "h_a1fa5c19d60fed": {
+      "author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
