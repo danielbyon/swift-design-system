@@ -2,7 +2,7 @@ import DesignSystem
 import SwiftUI
 import Testing
 
-#if canImport(UIKit)
+#if canImport(UIKit) && !os(watchOS)
 import UIKit
 #elseif canImport(AppKit)
 import AppKit
@@ -44,7 +44,7 @@ public func validateColors<System: ColorDesignSystem>(in designSystem: System) {
         _ = color.resolve(in: lightEnvironment)
         _ = color.resolve(in: darkEnvironment)
 
-        #if canImport(UIKit)
+        #if canImport(UIKit) && !os(watchOS)
         let adaptiveColor = color.adaptivePlatformColor
         _ = adaptiveColor.resolvedColor(
             with: UITraitCollection(userInterfaceStyle: .light)

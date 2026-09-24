@@ -160,10 +160,10 @@ public extension ColorDesignSystem {
 ///
 /// A `DesignColor` is created through a `ColorTheme`'s primitive-token-bound palette. Resolve it
 /// explicitly with `resolve(for:)` when a concrete appearance is required, or pass it directly
-/// to SwiftUI shape-style APIs to adapt to the rendering environment. UIKit and AppKit platforms
-/// additionally provide `adaptivePlatformColor`; watchOS relies on the adaptive shape style and
-/// explicit appearance resolution because SwiftUI has no context-free adaptive `Color` value for
-/// an arbitrary app-authored pair.
+/// to SwiftUI shape-style APIs to adapt to the rendering environment. Platforms that support
+/// native dynamic colors also provide `adaptivePlatformColor`; watchOS relies on the adaptive shape
+/// style and explicit appearance resolution because SwiftUI has no context-free adaptive `Color`
+/// value for an arbitrary app-authored pair.
 public struct DesignColor: Sendable, ShapeStyle {
     private let light: PlatformColor
     private let dark: PlatformColor
@@ -213,7 +213,7 @@ public struct DesignColor: Sendable, ShapeStyle {
     /// This convenience exists only when UIKit or AppKit can represent a context-free dynamic
     /// color. The returned native color selects a semantic source and preserves that source's
     /// own dynamic behavior.
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
     public var adaptivePlatformColor: PlatformColor {
         let light = self.light
         let dark = self.dark
