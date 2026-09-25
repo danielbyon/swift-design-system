@@ -173,13 +173,14 @@ public func validateColors<System: ColorDesignSystem>(in designSystem: System) {
     }
 }
 
-/// Validates gradient token enumeration, appearance resolution, SwiftUI style paths, and the
-/// native resolved-description seam.
+/// Validates gradient token enumeration, appearance resolution, and supported SwiftUI style paths.
 ///
-/// The validator visits the complete gradient vocabulary, resolves both explicit appearances to
-/// native-preserving descriptions, resolves SwiftUI styles for light and dark environments, and
-/// exercises direct and type-erased shape-style use. It does not clamp, sort, replace, or otherwise
-/// repair authored gradient stops; malformed-gradient recovery belongs to a later capability.
+/// The validator visits the complete gradient vocabulary and resolves both appearances through
+/// native-preserving descriptions. It exercises the bounds-aware `Shape.fill(DesignGradient)` path
+/// for every gradient kind and generic ShapeStyle resolution for linear and angular gradients.
+/// Radial gradients are omitted from the generic ShapeStyle path because that API has no rendered
+/// bounds; their generic release fallback is transparent. Native view rendering is actor-isolated
+/// and belongs in platform-specific tests.
 ///
 /// - Parameter designSystem: The app-owned design system whose semantic gradients are exercised.
 public func validateGradients<System: GradientDesignSystem>(in designSystem: System) {
@@ -190,11 +191,22 @@ public func validateGradients<System: GradientDesignSystem>(in designSystem: Sys
 
     for token in System.Gradient.allCases {
         let gradient = designSystem.gradient(for: token)
-        _ = gradient.resolve(for: .light)
-        _ = gradient.resolve(for: .dark)
-        _ = gradient.resolve(in: lightEnvironment)
-        _ = gradient.resolve(in: darkEnvironment)
         _ = Rectangle().fill(gradient)
-        _ = Rectangle().fill(gradient.anyShapeStyle)
+
+        switch gradient.resolve(for: .light) {
+        case .linear, .angular:
+            _ = gradient.resolve(in: lightEnvironment)
+            _ = Rectangle().fill(gradient.anyShapeStyle)
+        case .radial:
+            break
+        }
+
+        switch gradient.resolve(for: .dark) {
+        case .linear, .angular:
+            _ = gradient.resolve(in: darkEnvironment)
+            _ = Rectangle().fill(gradient.anyShapeStyle)
+        case .radial:
+            break
+        }
     }
 }
