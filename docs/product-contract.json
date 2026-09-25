@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "product": {
+    "name": "swift-design-system",
+    "purpose": "Provide reusable, strongly typed design-system mechanics for Apple-platform apps while keeping each consuming app's visual vocabulary and product semantics app-owned."
+  },
+  "primary_users": [
+    {
+      "id": "apple-app-developer",
+      "role": "Apple application developer",
+      "technical_level": "Experienced Swift developer working across SwiftUI and native UIKit/AppKit surfaces.",
+      "work_context": "Builds multiple Apple-platform applications that should share design-system mechanics without sharing app-specific token vocabularies or visual identity."
+    }
+  ],
+  "jobs_to_be_done": [
+    {
+      "id": "share-design-system-mechanics",
+      "statement": "Reuse design-system mechanics across Apple apps without coupling the package to any one app's semantic vocabulary or visual identity."
+    },
+    {
+      "id": "use-compiler-known-tokens",
+      "statement": "Represent app-owned design decisions with finite Swift token vocabularies and compiler-known symbols rather than strings or runtime dictionaries."
+    },
+    {
+      "id": "resolve-native-layout-values",
+      "statement": "Resolve scalar design tokens synchronously to native Apple layout value types without wrapper-unwrapping boilerplate."
+    },
+    {
+      "id": "validate-app-vocabularies",
+      "statement": "Enumerate and validate complete app-owned token vocabularies through public capability interfaces using DesignSystemTestSupport."
+    }
+  ],
+  "must_reduce": [
+    "Repeated per-app implementation of shared design-system mechanics.",
+    "Stringly typed or runtime-only token lookup.",
+    "Cross-app drift in design-system conventions and framework adaptation.",
+    "Boilerplate required to consume design values from SwiftUI, UIKit, and AppKit.",
+    "Duplicated app-specific validation infrastructure for finite token vocabularies."
+  ],
+  "must_not_become": [
+    "A repository of app-specific palettes, spacing scales, semantic token names, fonts, assets, or branding.",
+    "A monolithic universal design-token abstraction that pre-models unrelated future token families.",
+    "A runtime token dictionary or string-keyed lookup system.",
+    "A package-owned global current design system or runtime theme state object.",
+    "A multi-product architecture split into separate Core, SwiftUI, UIKit, and AppKit libraries.",
+    "A source of production scalar-value sanitization or hidden mutation of app-authored scalar capability results."
+  ],
+  "experience_principles": [
+    "Prefer small capability-specific public seams over speculative abstractions.",
+    "Keep app token vocabularies and aggregate design-system values app-owned.",
+    "Return native Apple framework value types where wrappers add no leverage.",
+    "Make lookup synchronous, deterministic, side-effect-free, nonthrowing, and cheap.",
+    "Use compile-time structure and finite CaseIterable vocabularies instead of runtime identity systems.",
+    "Keep Swift 6 strict-concurrency compatibility without unnecessary main-actor isolation.",
+    "Validate through public capability seams rather than private implementation structure."
+  ],
+  "canonical_docs": [
+    "docs/product-spec.md"
+  ],
+  "governance": {
+    "mode": "advisory",
+    "product_review_required_for": [
+      "product_slice",
+      "product_correction"
+    ],
+    "checkpoint_every_root_runs": 5
+  }
+}
