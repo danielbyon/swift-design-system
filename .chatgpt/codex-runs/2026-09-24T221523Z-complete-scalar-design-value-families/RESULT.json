@@ -1,0 +1,140 @@
+{
+  "schema_version": 3,
+  "repo_id": "swift-design-system",
+  "run_id": "2026-09-24T221523Z-complete-scalar-design-value-families",
+  "status": "blocked",
+  "summary": "The scalar implementation and package test suite are complete, but the requested repository-safe all profile still returns VALIDATION_PROFILE_UNAVAILABLE before selecting a command.",
+  "changed_files": [
+    "Sources/DesignSystem/DesignSystem.swift",
+    "Sources/DesignSystemTestSupport/DesignSystemTestSupport.swift",
+    "Tests/DesignSystemTests/ScalarCapabilityTests.swift",
+    "Examples/Shared/ExampleApp.swift",
+    "Makefile",
+    ".chatgpt/codex-runs/2026-09-24T221523Z-complete-scalar-design-value-families/RESULT.json"
+  ],
+  "connected_changes": [
+    {
+      "path": "Sources/DesignSystem/DesignSystem.swift",
+      "reason": "Adds independent public dimension, size, corner-radius, stroke-width, and opacity token and capability APIs with direct native-value resolvers; preserves existing spacing and semantic-color behavior."
+    },
+    {
+      "path": "Sources/DesignSystemTestSupport/DesignSystemTestSupport.swift",
+      "reason": "Adds family-specific exhaustive validators, including independent size component checks and opacity validation for negative, finite-above-one, non-finite, and accepted zero and one values."
+    },
+    {
+      "path": "Tests/DesignSystemTests/ScalarCapabilityTests.swift",
+      "reason": "Covers all five public scalar seams, complete vocabulary traversal, diagnostics, unchanged resolution, and opacity range boundaries including finite 1.25."
+    },
+    {
+      "path": "Examples/Shared/ExampleApp.swift",
+      "reason": "Demonstrates realistic semantic usage of all five scalar families through the shared app-owned aggregate design system."
+    },
+    {
+      "path": "Makefile",
+      "reason": "Records the explicitly approved durable scope amendment for Makefile and adds the safe all profile by delegating to the existing test target without duplicating or broadening validation."
+    },
+    {
+      "path": ".chatgpt/codex-runs/2026-09-24T221523Z-complete-scalar-design-value-families/RESULT.json",
+      "reason": "Records this run's implementation evidence, approved Makefile scope amendment, validation outcome, and one-to-one connected-change bookkeeping."
+    }
+  ],
+  "commands_run": [
+    "Safe validation profile test: passed through make:test with 17 Swift Testing tests.",
+    "Safe validation profile all: attempted through the repository validator; it returned VALIDATION_PROFILE_UNAVAILABLE before selecting or executing a command, so make all was not run and no validation artifact was produced for this attempt.",
+    "Serena Swift diagnostics for the four modified Swift files: no diagnostics.",
+    "Verified product-spec and product-contract SHA-256 values match the run baseline."
+  ],
+  "tests": [
+    "Passed: all 17 Swift Testing tests, including existing spacing and semantic-color coverage.",
+    "Passed: scalar resolver tests preserve valid, negative, out-of-range, infinite, and NaN values.",
+    "Passed: validator tests enumerate complete vocabularies, report multiple issues, and continue; size width and height are checked independently.",
+    "Passed: opacity validation accepts 0 and 1, reports negative opacity and finite 1.25, reports non-finite values, and leaves resolver values unchanged.",
+    "Not run: safe all profile; the validation runner rejected it before selecting a command."
+  ],
+  "product_acceptance_criteria": [
+    {
+      "id": "PAC-1",
+      "status": "passed",
+      "evidence": "Each family has its own marker and independent capability protocol; tests use single-family conformers and a non-Hashable, non-RawRepresentable token type."
+    },
+    {
+      "id": "PAC-2",
+      "status": "passed",
+      "evidence": "Dimension, corner radius, and stroke width return CGFloat; size returns CGSize; opacity returns Double through direct synchronous protocol requirements."
+    },
+    {
+      "id": "PAC-3",
+      "status": "passed",
+      "evidence": "Resolver tests assert finite, negative, out-of-range, infinite, and NaN values unchanged; opacity values are checked again after validation."
+    },
+    {
+      "id": "PAC-4",
+      "status": "passed",
+      "evidence": "Five capability-specific validators iterate their associated token type's allCases and report violations without changing resolver behavior."
+    },
+    {
+      "id": "PAC-5",
+      "status": "passed",
+      "evidence": "The shared ExampleDesignSystem conforms to all five new capabilities and consumes each through frame, rounded shape, stroke, and opacity SwiftUI modifiers."
+    },
+    {
+      "id": "PAC-6",
+      "status": "passed",
+      "evidence": "New token, capability, resolver, and validator DocC states logical-point or normalized unitless opacity semantics, validation policy, and the absence of production repair."
+    }
+  ],
+  "technical_acceptance_criteria": [
+    {
+      "id": "TAC-1",
+      "status": "passed",
+      "evidence": "DimensionToken, SizeToken, CornerRadiusToken, StrokeWidthToken, and OpacityToken require only Sendable and CaseIterable."
+    },
+    {
+      "id": "TAC-2",
+      "status": "passed",
+      "evidence": "Five independent Sendable protocols expose direct resolvers with the specified CGFloat, CGSize, and Double return types."
+    },
+    {
+      "id": "TAC-3",
+      "status": "passed",
+      "evidence": "scalarResolversReturnAppAuthoredValuesUnchanged covers valid, negative, out-of-range, infinite, and NaN values for all five families."
+    },
+    {
+      "id": "TAC-4",
+      "status": "passed",
+      "evidence": "DesignSystemTestSupport exports validateDimensions, validateSizes, validateCornerRadii, validateStrokeWidths, and validateOpacities; each loops over allCases."
+    },
+    {
+      "id": "TAC-5",
+      "status": "passed",
+      "evidence": "Per-family tests compare observed resolution history with the full vocabulary and capture all expected invalid-token diagnostics; a valid vocabulary produces no issues."
+    },
+    {
+      "id": "TAC-6",
+      "status": "passed",
+      "evidence": "Size validation independently checks width and height for finiteness and negativity; opacity accepts 0 and 1 and reports negative, finite-above-one (1.25), and non-finite values."
+    },
+    {
+      "id": "TAC-7",
+      "status": "passed",
+      "evidence": "The one immutable shared example aggregate maps app-owned tokens and uses every family in SwiftUI construction; Serena reported no Swift diagnostics for the example."
+    },
+    {
+      "id": "TAC-8",
+      "status": "passed",
+      "evidence": "Every new public token, capability, resolver, and TestSupport validator has DocC describing semantics, units or native type, test expectations, and no production sanitization; capability resolution is documented as synchronous and nonthrowing."
+    },
+    {
+      "id": "TAC-9",
+      "status": "passed",
+      "evidence": "The safe test profile passed all 17 tests, including existing spacing, semantic-color, and package-import tests; Package.swift and the two product-definition files were left unchanged."
+    }
+  ],
+  "scope_extension_required": [],
+  "blockers": [
+    "The requested repository-safe validation profile all returned VALIDATION_PROFILE_UNAVAILABLE before command selection. The Makefile all target delegates to test, but the validator did not expose that target; the required make all validation evidence is therefore unavailable."
+  ],
+  "followups": [
+    "Rerun the repository-safe all profile once the effective validator exposes the approved Makefile all target."
+  ]
+}
