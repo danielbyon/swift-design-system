@@ -172,3 +172,29 @@ public func validateColors<System: ColorDesignSystem>(in designSystem: System) {
         #endif
     }
 }
+
+/// Validates gradient token enumeration, appearance resolution, SwiftUI style paths, and the
+/// native resolved-description seam.
+///
+/// The validator visits the complete gradient vocabulary, resolves both explicit appearances to
+/// native-preserving descriptions, resolves SwiftUI styles for light and dark environments, and
+/// exercises direct and type-erased shape-style use. It does not clamp, sort, replace, or otherwise
+/// repair authored gradient stops; malformed-gradient recovery belongs to a later capability.
+///
+/// - Parameter designSystem: The app-owned design system whose semantic gradients are exercised.
+public func validateGradients<System: GradientDesignSystem>(in designSystem: System) {
+    var lightEnvironment = EnvironmentValues()
+    lightEnvironment.colorScheme = .light
+    var darkEnvironment = EnvironmentValues()
+    darkEnvironment.colorScheme = .dark
+
+    for token in System.Gradient.allCases {
+        let gradient = designSystem.gradient(for: token)
+        _ = gradient.resolve(for: .light)
+        _ = gradient.resolve(for: .dark)
+        _ = gradient.resolve(in: lightEnvironment)
+        _ = gradient.resolve(in: darkEnvironment)
+        _ = Rectangle().fill(gradient)
+        _ = Rectangle().fill(gradient.anyShapeStyle)
+    }
+}

@@ -47,8 +47,12 @@ private enum ExampleSemanticColor: SemanticColorToken {
     case accent
 }
 
+private enum ExampleGradientToken: GradientToken {
+    case feature
+}
+
 private struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, SizeDesignSystem,
-    CornerRadiusDesignSystem, StrokeWidthDesignSystem, OpacityDesignSystem, ColorDesignSystem {
+    CornerRadiusDesignSystem, StrokeWidthDesignSystem, OpacityDesignSystem, GradientDesignSystem {
     typealias Spacing = ExampleSpacing
     typealias Dimension = ExampleDimension
     typealias Size = ExampleSize
@@ -57,28 +61,58 @@ private struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, 
     typealias Opacity = ExampleOpacity
     typealias Primitive = ExamplePrimitiveColor
     typealias Semantic = ExampleSemanticColor
+    typealias Gradient = ExampleGradientToken
 
-    let colorTheme = ColorTheme<ExamplePrimitiveColor, ExampleSemanticColor>(
-        primitiveColor: { token in
-            switch token {
-            case .numericInk:
-                NumericColor.sRGB(red: 0.13, green: 0.16, blue: 0.21).platformColor
-            case .paper:
-                NumericColor.grayscale(white: 0.96).platformColor
-            case .nativeAccent:
-                nativeDynamicAccentColor()
-            case .assetAccent:
-                assetAccentColor()
+    let gradientTheme = GradientTheme<
+        ExamplePrimitiveColor,
+        ExampleSemanticColor,
+        ExampleGradientToken
+    >(
+        colorTheme: ColorTheme<ExamplePrimitiveColor, ExampleSemanticColor>(
+            primitiveColor: { token in
+                switch token {
+                case .numericInk:
+                    NumericColor.sRGB(red: 0.13, green: 0.16, blue: 0.21).platformColor
+                case .paper:
+                    NumericColor.grayscale(white: 0.96).platformColor
+                case .nativeAccent:
+                    nativeDynamicAccentColor()
+                case .assetAccent:
+                    assetAccentColor()
+                }
+            },
+            semanticColor: { token, palette in
+                switch token {
+                case .primaryText:
+                    palette.color(light: .numericInk, dark: .paper)
+                case .surface:
+                    palette.color(light: .paper, dark: .numericInk)
+                case .accent:
+                    palette.color(light: .nativeAccent, dark: .assetAccent)
+                }
             }
-        },
-        semanticColor: { token, palette in
+        ),
+        gradient: { token in
             switch token {
-            case .primaryText:
-                palette.color(light: .numericInk, dark: .paper)
-            case .surface:
-                palette.color(light: .paper, dark: .numericInk)
-            case .accent:
-                palette.color(light: .nativeAccent, dark: .assetAccent)
+            case .feature:
+                AdaptiveGradient<ExampleSemanticColor>(
+                    light: LinearGradientDefinition(
+                        stops: [
+                            GradientStop<ExampleSemanticColor>(semanticColor: .surface, location: 0),
+                            GradientStop<ExampleSemanticColor>(semanticColor: .accent, location: 1),
+                        ],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    ),
+                    dark: LinearGradientDefinition(
+                        stops: [
+                            GradientStop<ExampleSemanticColor>(semanticColor: .primaryText, location: 0.1),
+                            GradientStop<ExampleSemanticColor>(semanticColor: .accent, location: 0.9),
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
             }
         }
     )
@@ -132,6 +166,32 @@ private struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, 
     }
 }
 
+#if canImport(UIKit) && !os(watchOS)
+private struct ExampleNativeGradientView: UIViewRepresentable {
+    let gradient: DesignGradient
+
+    func makeUIView(context: Context) -> DesignGradientView {
+        DesignGradientView(gradient: gradient)
+    }
+
+    func updateUIView(_ view: DesignGradientView, context: Context) {
+        view.gradient = gradient
+    }
+}
+#elseif canImport(AppKit)
+private struct ExampleNativeGradientView: NSViewRepresentable {
+    let gradient: DesignGradient
+
+    func makeNSView(context: Context) -> DesignGradientView {
+        DesignGradientView(gradient: gradient)
+    }
+
+    func updateNSView(_ view: DesignGradientView, context: Context) {
+        view.gradient = gradient
+    }
+}
+#endif
+
 private func nativeDynamicAccentColor() -> PlatformColor {
     #if canImport(UIKit) && os(watchOS)
     UIColor(Color.accentColor)
@@ -166,6 +226,7 @@ struct DesignSystemExampleApp: App {
         WindowGroup {
             let cardSize = designSystem.size(for: .featureCard)
             let cardRadius = designSystem.cornerRadius(for: .card)
+            let featureGradient = designSystem.gradient(for: .feature)
 
             VStack(alignment: .leading, spacing: designSystem.spacing(for: .sectionGap)) {
                 Text("DesignSystem example host")
@@ -181,6 +242,19 @@ struct DesignSystemExampleApp: App {
                         .frame(height: designSystem.dimension(for: .captionHeight))
                     Text("Native dynamic and asset-backed color sources")
                         .foregroundStyle(designSystem.color(for: .accent))
+                    RoundedRectangle(cornerRadius: cardRadius)
+                        .fill(featureGradient)
+                        .frame(height: 48)
+                        .accessibilityLabel("Adaptive semantic linear gradient")
+                    #if canImport(UIKit) && !os(watchOS)
+                    ExampleNativeGradientView(gradient: featureGradient)
+                        .frame(height: 48)
+                        .clipShape(RoundedRectangle(cornerRadius: cardRadius))
+                    #elseif canImport(AppKit)
+                    ExampleNativeGradientView(gradient: featureGradient)
+                        .frame(height: 48)
+                        .clipShape(RoundedRectangle(cornerRadius: cardRadius))
+                    #endif
                 }
                 .frame(
                     maxWidth: cardSize.width,
