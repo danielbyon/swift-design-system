@@ -1,6 +1,12 @@
 import DesignSystem
 import SwiftUI
 
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
+
 private enum ExampleSpacing: SpacingToken {
     case screenInset
     case sectionGap
@@ -29,13 +35,16 @@ private enum ExampleOpacity: OpacityToken {
 }
 
 private enum ExamplePrimitiveColor: PrimitiveColorToken {
-    case ink
+    case numericInk
     case paper
+    case nativeAccent
+    case assetAccent
 }
 
 private enum ExampleSemanticColor: SemanticColorToken {
     case primaryText
     case surface
+    case accent
 }
 
 private struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, SizeDesignSystem,
@@ -52,18 +61,24 @@ private struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, 
     let colorTheme = ColorTheme<ExamplePrimitiveColor, ExampleSemanticColor>(
         primitiveColor: { token in
             switch token {
-            case .ink:
-                .black
+            case .numericInk:
+                NumericColor.sRGB(red: 0.13, green: 0.16, blue: 0.21).platformColor
             case .paper:
-                .white
+                NumericColor.grayscale(white: 0.96).platformColor
+            case .nativeAccent:
+                nativeDynamicAccentColor()
+            case .assetAccent:
+                assetAccentColor()
             }
         },
         semanticColor: { token, palette in
             switch token {
             case .primaryText:
-                palette.color(light: .ink, dark: .paper)
+                palette.color(light: .numericInk, dark: .paper)
             case .surface:
-                palette.color(light: .paper, dark: .ink)
+                palette.color(light: .paper, dark: .numericInk)
+            case .accent:
+                palette.color(light: .nativeAccent, dark: .assetAccent)
             }
         }
     )
@@ -117,6 +132,32 @@ private struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, 
     }
 }
 
+private func nativeDynamicAccentColor() -> PlatformColor {
+    #if canImport(UIKit) && os(watchOS)
+    UIColor(Color.accentColor)
+    #elseif canImport(UIKit)
+    UIColor { traits in
+        traits.userInterfaceStyle == .dark ? .systemOrange : .systemBlue
+    }
+    #elseif canImport(AppKit)
+    NSColor(name: nil) { appearance in
+        appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? .systemOrange : .systemBlue
+    }
+    #else
+    Color.accentColor
+    #endif
+}
+
+private func assetAccentColor() -> PlatformColor {
+    #if canImport(UIKit)
+    UIColor(Color(.exampleAccent))
+    #elseif canImport(AppKit)
+    NSColor(resource: .exampleAccent)
+    #else
+    Color(.exampleAccent)
+    #endif
+}
+
 @main
 struct DesignSystemExampleApp: App {
     private let designSystem = ExampleDesignSystem()
@@ -138,6 +179,8 @@ struct DesignSystemExampleApp: App {
                         .foregroundStyle(designSystem.color(for: .primaryText))
                         .opacity(designSystem.opacity(for: .secondaryContent))
                         .frame(height: designSystem.dimension(for: .captionHeight))
+                    Text("Native dynamic and asset-backed color sources")
+                        .foregroundStyle(designSystem.color(for: .accent))
                 }
                 .frame(
                     maxWidth: cardSize.width,
