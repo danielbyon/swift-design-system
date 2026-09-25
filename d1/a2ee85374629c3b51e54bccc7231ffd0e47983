@@ -1,0 +1,51 @@
+Tests/DesignSystemTests/GradientCapabilityTests.swift
+  s_1c40400ce31d5b::t_82c5ac7301779e 53-54,56
+  s_1c40400ce31d5b::t_1c747055adf1ba 78-82
+  s_1c40400ce31d5b::t_e21a7ad7c175d9 275,277,297,477,524
+  s_1c40400ce31d5b::t_d0d21d5ff286a6 13-14,22,50,134-215
+  s_1c40400ce31d5b::t_812d420be47335 23-49,113-117,128-133
+  s_1c40400ce31d5b::t_894d8d2c0d0261 52,97
+  s_1c40400ce31d5b::t_9587f206c7ceba 57,83-86
+  s_1c40400ce31d5b::t_5a81750d06a053 15-21,59-77,87-90,102-112,118-127
+  s_1c40400ce31d5b::t_69e39f4445172b 51,55,58,91-96,98-101
+  s_1c40400ce31d5b::t_4e4942f7120545 1-12,216-274,276,278-296,298-440,442-476,478-523,525-548
+  s_1c40400ce31d5b::t_b3112beef26f1e 441
+Sources/DesignSystem/Gradient.swift
+  s_1c40400ce31d5b::t_ef636553f88395 1-159,161,163-336
+  s_9c25743c2d0607::t_5081d4bc48b35b 160,162
+Sources/DesignSystem/DesignGradientView.swift
+  s_1c40400ce31d5b::t_206e2687b283fd 1-2
+  s_1c40400ce31d5b::t_cf87e2e6c337a2 3-52,54-110,112-120,122-127,130-148
+  s_1c40400ce31d5b::t_8b5cdf04a6884b 53,111,121
+  s_1c40400ce31d5b::t_72fce8589509de 128-129
+Examples/Shared/ExampleApp.swift
+  s_1c40400ce31d5b::t_d4609c90b24a3d 50-53,55,64,66-92,94-95,97-115,169-194,229,245-257
+Sources/DesignSystemTestSupport/DesignSystemTestSupport.swift
+  s_1c40400ce31d5b::t_1ef17eb7bb7ed7 176-177,179-182
+  s_1c40400ce31d5b::t_123f9bdadf1adc 175,178,183-197,199-200
+  s_1c40400ce31d5b::t_bdde6ea5d24220 198
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d1a2ee85374629c3b51e54bccc7231ffd0e47983",
+  "prompts": {},
+  "sessions": {
+    "s_1c40400ce31d5b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0d86e-7aed-7350-bc32-21f2807e5747",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    },
+    "s_9c25743c2d0607": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0d8c8-8436-7e61-a094-15b63e6b6512",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
