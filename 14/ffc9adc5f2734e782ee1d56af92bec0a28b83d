@@ -1,0 +1,16 @@
+docs/product-contract.json
+  h_a1fa5c19d60fed 1-68
+docs/product-spec.md
+  h_a1fa5c19d60fed 1-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "14ffc9adc5f2734e782ee1d56af92bec0a28b83d",
+  "prompts": {},
+  "humans": {
+    "h_a1fa5c19d60fed": {
+      "author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
