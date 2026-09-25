@@ -38,8 +38,7 @@ public func validateDimensions<System: DimensionDesignSystem>(in designSystem: S
             Issue.record(
                 "Dimension token \(String(describing: token)) resolved to a non-finite value."
             )
-        }
-        if value < 0 {
+        } else if value < 0 {
             Issue.record(
                 "Dimension token \(String(describing: token)) resolved to a negative value."
             )
@@ -62,8 +61,7 @@ public func validateSizes<System: SizeDesignSystem>(in designSystem: System) {
                 Issue.record(
                     "Size token \(String(describing: token)) has a non-finite \(component) component."
                 )
-            }
-            if value < 0 {
+            } else if value < 0 {
                 Issue.record(
                     "Size token \(String(describing: token)) has a negative \(component) component."
                 )
@@ -85,8 +83,7 @@ public func validateCornerRadii<System: CornerRadiusDesignSystem>(in designSyste
             Issue.record(
                 "Corner-radius token \(String(describing: token)) resolved to a non-finite value."
             )
-        }
-        if value < 0 {
+        } else if value < 0 {
             Issue.record(
                 "Corner-radius token \(String(describing: token)) resolved to a negative value."
             )
@@ -107,8 +104,7 @@ public func validateStrokeWidths<System: StrokeWidthDesignSystem>(in designSyste
             Issue.record(
                 "Stroke-width token \(String(describing: token)) resolved to a non-finite value."
             )
-        }
-        if value < 0 {
+        } else if value < 0 {
             Issue.record(
                 "Stroke-width token \(String(describing: token)) resolved to a negative value."
             )
@@ -129,8 +125,7 @@ public func validateOpacities<System: OpacityDesignSystem>(in designSystem: Syst
             Issue.record(
                 "Opacity token \(String(describing: token)) resolved to a non-finite value."
             )
-        }
-        if value < 0 || value > 1 {
+        } else if value < 0 || value > 1 {
             Issue.record(
                 "Opacity token \(String(describing: token)) resolved outside the inclusive 0...1 range."
             )

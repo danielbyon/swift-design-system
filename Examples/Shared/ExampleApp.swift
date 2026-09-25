@@ -139,7 +139,12 @@ struct DesignSystemExampleApp: App {
                         .opacity(designSystem.opacity(for: .secondaryContent))
                         .frame(height: designSystem.dimension(for: .captionHeight))
                 }
-                .frame(width: cardSize.width, height: cardSize.height, alignment: .leading)
+                .frame(
+                    maxWidth: cardSize.width,
+                    minHeight: cardSize.height,
+                    maxHeight: cardSize.height,
+                    alignment: .leading
+                )
                 .padding(designSystem.spacing(for: .contentGap))
                 .background {
                     RoundedRectangle(cornerRadius: cardRadius)

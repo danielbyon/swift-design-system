@@ -39,6 +39,7 @@ private enum SizeFixtureToken: SizeToken {
     case negativeWidth
     case negativeHeight
     case positiveInfinityWidth
+    case negativeInfinityWidth
     case negativeInfinityHeight
     case notANumberWidth
     case notANumberHeight
@@ -58,6 +59,8 @@ private struct SizeFixture: SizeDesignSystem {
             CGSize(width: 12, height: -2)
         case .positiveInfinityWidth:
             CGSize(width: CGFloat.infinity, height: 12)
+        case .negativeInfinityWidth:
+            CGSize(width: -CGFloat.infinity, height: 12)
         case .negativeInfinityHeight:
             CGSize(width: 12, height: -CGFloat.infinity)
         case .notANumberWidth:
@@ -289,6 +292,13 @@ private let expectedDimensionIssueTokens = [
     .notANumber,
 ].map { String(describing: $0) }
 
+private let expectedDimensionIssueMessages = [
+    "Dimension token negativeFinite resolved to a negative value.",
+    "Dimension token positiveInfinity resolved to a non-finite value.",
+    "Dimension token negativeInfinity resolved to a non-finite value.",
+    "Dimension token notANumber resolved to a non-finite value.",
+]
+
 private let capturedDimensionIssues = Mutex<[String]>([])
 
 @Test(.filterIssues { issue in
@@ -299,11 +309,11 @@ private let capturedDimensionIssues = Mutex<[String]>([])
     }
 
     let comment = issue.comments.map(\.rawValue).joined(separator: " ")
-    guard let token = expectedDimensionIssueTokens.first(where: { comment.contains($0) }) else {
+    guard expectedDimensionIssueTokens.contains(where: { comment.contains($0) }) else {
         return true
     }
 
-    capturedDimensionIssues.withLock { $0.append(token) }
+    capturedDimensionIssues.withLock { $0.append(comment) }
     return false
 })
 func dimensionValidatorReportsEveryInvalidTokenAndContinues() {
@@ -316,7 +326,7 @@ func dimensionValidatorReportsEveryInvalidTokenAndContinues() {
         .map { String(describing: $0) }
         .sorted()
     #expect(designSystem.resolutionHistory.sorted() == expectedVocabulary)
-    #expect(Set(capturedDimensionIssues.withLock { $0 }) == Set(expectedDimensionIssueTokens))
+    #expect(capturedDimensionIssues.withLock { $0 }.sorted() == expectedDimensionIssueMessages.sorted())
     #expect(designSystem.dimension(for: .negativeFinite) == -4)
     #expect(designSystem.dimension(for: .positiveInfinity) == .infinity)
     #expect(designSystem.dimension(for: .negativeInfinity) == -.infinity)
@@ -327,10 +337,21 @@ private let expectedSizeIssueTokens = [
     SizeFixtureToken.negativeWidth,
     .negativeHeight,
     .positiveInfinityWidth,
+    .negativeInfinityWidth,
     .negativeInfinityHeight,
     .notANumberWidth,
     .notANumberHeight,
 ].map { String(describing: $0) }
+
+private let expectedSizeIssueMessages = [
+    "Size token negativeWidth has a negative width component.",
+    "Size token negativeHeight has a negative height component.",
+    "Size token positiveInfinityWidth has a non-finite width component.",
+    "Size token negativeInfinityWidth has a non-finite width component.",
+    "Size token negativeInfinityHeight has a non-finite height component.",
+    "Size token notANumberWidth has a non-finite width component.",
+    "Size token notANumberHeight has a non-finite height component.",
+]
 
 private let capturedSizeIssues = Mutex<[String]>([])
 
@@ -360,15 +381,13 @@ func sizeValidatorChecksBothComponentsAndContinues() {
         .sorted()
     #expect(designSystem.resolutionHistory.sorted() == expectedVocabulary)
     let capturedComments = capturedSizeIssues.withLock { $0 }
-    let reportedTokens = capturedComments.compactMap { comment in
-        expectedSizeIssueTokens.first(where: { comment.contains($0) })
-    }
-    #expect(Set(reportedTokens) == Set(expectedSizeIssueTokens))
+    #expect(capturedComments.sorted() == expectedSizeIssueMessages.sorted())
 
     let comments = capturedComments
     #expect(comments.contains { $0.contains("negativeWidth") && $0.contains("width") })
     #expect(comments.contains { $0.contains("negativeHeight") && $0.contains("height") })
     #expect(comments.contains { $0.contains("positiveInfinityWidth") && $0.contains("width") })
+    #expect(comments.contains { $0.contains("negativeInfinityWidth") && $0.contains("width") })
     #expect(comments.contains { $0.contains("negativeInfinityHeight") && $0.contains("height") })
     #expect(comments.contains { $0.contains("notANumberWidth") && $0.contains("width") })
     #expect(comments.contains { $0.contains("notANumberHeight") && $0.contains("height") })
@@ -376,6 +395,7 @@ func sizeValidatorChecksBothComponentsAndContinues() {
     #expect(designSystem.size(for: .negativeWidth).width == -2)
     #expect(designSystem.size(for: .negativeHeight).height == -2)
     #expect(designSystem.size(for: .positiveInfinityWidth).width == .infinity)
+    #expect(designSystem.size(for: .negativeInfinityWidth).width == -.infinity)
     #expect(designSystem.size(for: .negativeInfinityHeight).height == -.infinity)
     #expect(designSystem.size(for: .notANumberWidth).width.isNaN)
     #expect(designSystem.size(for: .notANumberHeight).height.isNaN)
@@ -388,6 +408,13 @@ private let expectedCornerRadiusIssueTokens = [
     .notANumber,
 ].map { String(describing: $0) }
 
+private let expectedCornerRadiusIssueMessages = [
+    "Corner-radius token negativeFinite resolved to a negative value.",
+    "Corner-radius token positiveInfinity resolved to a non-finite value.",
+    "Corner-radius token negativeInfinity resolved to a non-finite value.",
+    "Corner-radius token notANumber resolved to a non-finite value.",
+]
+
 private let capturedCornerRadiusIssues = Mutex<[String]>([])
 
 @Test(.filterIssues { issue in
@@ -398,11 +425,11 @@ private let capturedCornerRadiusIssues = Mutex<[String]>([])
     }
 
     let comment = issue.comments.map(\.rawValue).joined(separator: " ")
-    guard let token = expectedCornerRadiusIssueTokens.first(where: { comment.contains($0) }) else {
+    guard expectedCornerRadiusIssueTokens.contains(where: { comment.contains($0) }) else {
         return true
     }
 
-    capturedCornerRadiusIssues.withLock { $0.append(token) }
+    capturedCornerRadiusIssues.withLock { $0.append(comment) }
     return false
 })
 func cornerRadiusValidatorReportsEveryInvalidTokenAndContinues() {
@@ -415,7 +442,7 @@ func cornerRadiusValidatorReportsEveryInvalidTokenAndContinues() {
         .map { String(describing: $0) }
         .sorted()
     #expect(designSystem.resolutionHistory.sorted() == expectedVocabulary)
-    #expect(Set(capturedCornerRadiusIssues.withLock { $0 }) == Set(expectedCornerRadiusIssueTokens))
+    #expect(capturedCornerRadiusIssues.withLock { $0 }.sorted() == expectedCornerRadiusIssueMessages.sorted())
     #expect(designSystem.cornerRadius(for: .negativeFinite) == -4)
     #expect(designSystem.cornerRadius(for: .positiveInfinity) == .infinity)
     #expect(designSystem.cornerRadius(for: .negativeInfinity) == -.infinity)
@@ -429,6 +456,13 @@ private let expectedStrokeWidthIssueTokens = [
     .notANumber,
 ].map { String(describing: $0) }
 
+private let expectedStrokeWidthIssueMessages = [
+    "Stroke-width token negativeFinite resolved to a negative value.",
+    "Stroke-width token positiveInfinity resolved to a non-finite value.",
+    "Stroke-width token negativeInfinity resolved to a non-finite value.",
+    "Stroke-width token notANumber resolved to a non-finite value.",
+]
+
 private let capturedStrokeWidthIssues = Mutex<[String]>([])
 
 @Test(.filterIssues { issue in
@@ -439,11 +473,11 @@ private let capturedStrokeWidthIssues = Mutex<[String]>([])
     }
 
     let comment = issue.comments.map(\.rawValue).joined(separator: " ")
-    guard let token = expectedStrokeWidthIssueTokens.first(where: { comment.contains($0) }) else {
+    guard expectedStrokeWidthIssueTokens.contains(where: { comment.contains($0) }) else {
         return true
     }
 
-    capturedStrokeWidthIssues.withLock { $0.append(token) }
+    capturedStrokeWidthIssues.withLock { $0.append(comment) }
     return false
 })
 func strokeWidthValidatorReportsEveryInvalidTokenAndContinues() {
@@ -456,7 +490,7 @@ func strokeWidthValidatorReportsEveryInvalidTokenAndContinues() {
         .map { String(describing: $0) }
         .sorted()
     #expect(designSystem.resolutionHistory.sorted() == expectedVocabulary)
-    #expect(Set(capturedStrokeWidthIssues.withLock { $0 }) == Set(expectedStrokeWidthIssueTokens))
+    #expect(capturedStrokeWidthIssues.withLock { $0 }.sorted() == expectedStrokeWidthIssueMessages.sorted())
     #expect(designSystem.strokeWidth(for: .negativeFinite) == -2)
     #expect(designSystem.strokeWidth(for: .positiveInfinity) == .infinity)
     #expect(designSystem.strokeWidth(for: .negativeInfinity) == -.infinity)
@@ -471,6 +505,14 @@ private let expectedOpacityIssueTokens = [
     .notANumber,
 ].map { String(describing: $0) }
 
+private let expectedOpacityIssueMessages = [
+    "Opacity token negativeFinite resolved outside the inclusive 0...1 range.",
+    "Opacity token finiteAboveOne resolved outside the inclusive 0...1 range.",
+    "Opacity token positiveInfinity resolved to a non-finite value.",
+    "Opacity token negativeInfinity resolved to a non-finite value.",
+    "Opacity token notANumber resolved to a non-finite value.",
+]
+
 private let capturedOpacityIssues = Mutex<[String]>([])
 
 @Test(.filterIssues { issue in
@@ -481,11 +523,11 @@ private let capturedOpacityIssues = Mutex<[String]>([])
     }
 
     let comment = issue.comments.map(\.rawValue).joined(separator: " ")
-    guard let token = expectedOpacityIssueTokens.first(where: { comment.contains($0) }) else {
+    guard expectedOpacityIssueTokens.contains(where: { comment.contains($0) }) else {
         return true
     }
 
-    capturedOpacityIssues.withLock { $0.append(token) }
+    capturedOpacityIssues.withLock { $0.append(comment) }
     return false
 })
 func opacityValidatorReportsBothRangeSidesAndNonFiniteValues() {
@@ -498,7 +540,7 @@ func opacityValidatorReportsBothRangeSidesAndNonFiniteValues() {
         .map { String(describing: $0) }
         .sorted()
     #expect(designSystem.resolutionHistory.sorted() == expectedVocabulary)
-    #expect(Set(capturedOpacityIssues.withLock { $0 }) == Set(expectedOpacityIssueTokens))
+    #expect(capturedOpacityIssues.withLock { $0 }.sorted() == expectedOpacityIssueMessages.sorted())
     #expect(designSystem.opacity(for: .zero) == 0)
     #expect(designSystem.opacity(for: .one) == 1)
     #expect(designSystem.opacity(for: .negativeFinite) == -0.25)
