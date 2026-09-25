@@ -1,0 +1,14 @@
+AGENTS.md
+  h_a1fa5c19d60fed 14-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a4be9cd5f29982ea359f0da35973158559debd66",
+  "prompts": {},
+  "humans": {
+    "h_a1fa5c19d60fed": {
+      "author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
