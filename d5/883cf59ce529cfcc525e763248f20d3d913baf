@@ -1,0 +1,51 @@
+Examples/Hosts/watchOSExampleApp.swift
+  s_a48b00b359d933::t_9213bb7096e538 1-10
+Sources/DesignSystemTestSupport/DesignSystemTestSupport.docc/ValidationGuide.md
+  s_a48b00b359d933::t_46efb1b1149148 1-78
+Examples/Shared/ExampleFeatureView.swift
+  s_a48b00b359d933::t_9213bb7096e538 1-9,15-68,90,96-101,103-121,123-138,140-157,159-174
+  s_a48b00b359d933::t_9cf706a9087dda 10-14,102,122,139,158
+  s_a48b00b359d933::t_9f9307b590335d 69-89,91-95
+Examples/Hosts/iOSExampleApp.swift
+  s_a48b00b359d933::t_9213bb7096e538 1-10
+Examples/Hosts/visionOSExampleApp.swift
+  s_a48b00b359d933::t_9213bb7096e538 1-10
+Examples/DesignSystemExamples.xcodeproj/project.pbxproj
+  s_a48b00b359d933::t_c44799b611ac1d 9-28,43-50,71,78-83,87-98,235-239
+Sources/DesignSystem/DesignGradientView.swift
+  s_a48b00b359d933::t_3d49678d0c6bbb 46-50,110,113-117,130-133
+Examples/Shared/ExampleDesignSystem.swift
+  s_a48b00b359d933::t_9cf706a9087dda 10,17,22,62-65,78,238,255
+  s_a48b00b359d933::t_9213bb7096e538 11,18,21,23-24,27,31,35,39,43,50,56,66,79-80,202-205
+Sources/DesignSystem/DesignSystem.docc/ApplicationIntegration.md
+  s_a48b00b359d933::t_8e03c4c73ed403 102
+  s_a48b00b359d933::t_37f12fa2d16b13 23-24
+  s_a48b00b359d933::t_46efb1b1149148 1-22,25-101,103-126
+Sources/DesignSystemTestSupport/DesignSystemTestSupport.docc/DesignSystemTestSupport.md
+  s_a48b00b359d933::t_46efb1b1149148 1-8
+Examples/Shared/ExampleDesignSystemEnvironment.swift
+  s_a48b00b359d933::t_9213bb7096e538 1-2,4-8,10-14
+  s_a48b00b359d933::t_9cf706a9087dda 3,9
+Examples/Hosts/tvOSExampleApp.swift
+  s_a48b00b359d933::t_9213bb7096e538 1-10
+Examples/Hosts/macOSExampleApp.swift
+  s_a48b00b359d933::t_9213bb7096e538 1-10
+Sources/DesignSystem/DesignSystem.docc/DesignSystem.md
+  s_a48b00b359d933::t_46efb1b1149148 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d5883cf59ce529cfcc525e763248f20d3d913baf",
+  "prompts": {},
+  "sessions": {
+    "s_a48b00b359d933": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0df01-b697-7912-9d49-c0ff83a92337",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
