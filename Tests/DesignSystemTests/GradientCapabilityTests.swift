@@ -172,6 +172,40 @@ func swiftUIRadialFillUsesTheMinimumRenderedDimensionForItsRadius() {
 }
 
 @Test @MainActor
+func designGradientFillPreservesCustomShapeSizingForUnspecifiedProposals() {
+    let gradient = makeGradient(for: .linear(
+        stops: [
+            GradientStop(semanticColor: .content, location: 0),
+            GradientStop(semanticColor: .accent, location: 1),
+        ],
+        startPoint: .leading,
+        endPoint: .trailing
+    ))
+
+    func renderedSize<Content: View>(of content: Content) -> CGSize? {
+        let renderer = ImageRenderer(content: content)
+        renderer.proposedSize = .unspecified
+        renderer.scale = 1
+        guard let image = renderer.cgImage else { return nil }
+        return CGSize(width: image.width, height: image.height)
+    }
+
+    guard let normalFillSize = renderedSize(
+        of: DistinctiveSizeShape().fill(Color.clear).fixedSize()
+    ),
+    let designGradientFillSize = renderedSize(
+        of: DistinctiveSizeShape().fill(gradient).fixedSize()
+    )
+    else {
+        Issue.record("SwiftUI must render both custom-shape fills to images.")
+        return
+    }
+
+    #expect(normalFillSize == CGSize(width: 83, height: 37))
+    #expect(designGradientFillSize == normalFillSize)
+}
+
+@Test @MainActor
 func appKitRadialAndAngularViewsMatchSwiftUIGradientRendering() {
     guard let lightAppearance = NSAppearance(named: .aqua) else {
         Issue.record("AppKit light appearance must be available for gradient rendering.")
@@ -213,6 +247,15 @@ func appKitRadialAndAngularViewsMatchSwiftUIGradientRendering() {
         center: .center,
         startAngle: GradientAngle.degrees(-450),
         endAngle: GradientAngle.degrees(-1530)
+    ))
+    let negativeNonIntegralMultiTurnAngular = makeMonochromeGradient(for: .angular(
+        stops: [
+            GradientStop(semanticColor: .content, location: 0),
+            GradientStop(semanticColor: .accent, location: 1),
+        ],
+        center: .center,
+        startAngle: GradientAngle.degrees(0),
+        endAngle: GradientAngle.degrees(-450)
     ))
     let reverseAngular = makeMonochromeGradient(for: .angular(
         stops: [
@@ -267,20 +310,26 @@ func appKitRadialAndAngularViewsMatchSwiftUIGradientRendering() {
         return bitmap
     }
 
-    func pixelsMatch(
+    func expectPixelsToMatch(
         _ label: String,
         _ designGradient: DesignGradient,
         size: CGSize,
         at points: [(Int, Int)]
-    ) -> Bool {
+    ) {
         guard let reference = swiftUIBitmap(designGradient, size: size),
               let native = appKitBitmap(designGradient, size: size)
-        else { return false }
+        else {
+            Issue.record("\(label): SwiftUI and AppKit must render the gradient to images.")
+            return
+        }
 
         for (x, y) in points {
             guard let expected = reference.colorAt(x: x, y: y)?.usingColorSpace(.deviceRGB),
                   let actual = native.colorAt(x: x, y: y)?.usingColorSpace(.deviceRGB)
-            else { return false }
+            else {
+                Issue.record("\(label) pixels at (\(x), \(y)) must be readable in device RGB.")
+                continue
+            }
             let expectedComponents = (expected.redComponent, expected.greenComponent, expected.blueComponent)
             let actualComponents = (actual.redComponent, actual.greenComponent, actual.blueComponent)
             #expect(
@@ -296,34 +345,39 @@ func appKitRadialAndAngularViewsMatchSwiftUIGradientRendering() {
                 "\(label) at (\(x), \(y)): expected \(expectedComponents), got \(actualComponents)."
             )
         }
-        return true
     }
 
-    #expect(pixelsMatch("radial", radial, size: CGSize(width: 64, height: 32), at: [(32, 16), (32, 2), (4, 16)]))
-    #expect(pixelsMatch(
+    expectPixelsToMatch("radial", radial, size: CGSize(width: 64, height: 32), at: [(32, 16), (32, 2), (4, 16)])
+    expectPixelsToMatch(
         "angular",
         angular,
         size: CGSize(width: 64, height: 64),
         at: [(32, 2), (62, 32), (32, 62), (2, 32), (46, 46), (18, 18)]
-    ))
-    #expect(pixelsMatch(
+    )
+    expectPixelsToMatch(
         "multi-turn angular",
         multiTurnAngular,
         size: CGSize(width: 64, height: 64),
         at: [(32, 2), (62, 32), (32, 62), (2, 32), (18, 18)]
-    ))
-    #expect(pixelsMatch(
+    )
+    expectPixelsToMatch(
         "negative multi-turn angular",
         negativeMultiTurnAngular,
         size: CGSize(width: 64, height: 64),
         at: [(32, 2), (62, 32), (32, 62), (2, 32), (46, 46), (10, 20)]
-    ))
-    #expect(pixelsMatch(
+    )
+    expectPixelsToMatch(
+        "negative non-integral multi-turn angular",
+        negativeNonIntegralMultiTurnAngular,
+        size: CGSize(width: 64, height: 64),
+        at: [(32, 2), (62, 32), (32, 62), (2, 32), (46, 46), (10, 20)]
+    )
+    expectPixelsToMatch(
         "reverse angular",
         reverseAngular,
         size: CGSize(width: 64, height: 64),
         at: [(32, 2), (62, 32), (32, 62), (2, 32), (46, 46), (18, 18), (10, 20), (20, 10)]
-    ))
+    )
 }
 
 #if !DEBUG
@@ -425,6 +479,16 @@ func appKitGradientViewPreservesDisplayP3StopColors() {
 }
 #endif
 #endif
+
+private struct DistinctiveSizeShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        Path(ellipseIn: rect)
+    }
+
+    func sizeThatFits(_ proposal: ProposedViewSize) -> CGSize {
+        CGSize(width: 83, height: 37)
+    }
+}
 
 private enum FixturePrimitiveColor: PrimitiveColorToken {
     case ink

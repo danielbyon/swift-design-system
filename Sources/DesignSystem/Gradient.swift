@@ -603,14 +603,19 @@ private struct GeometryAwareGradientFill<ContentShape: Shape>: View {
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
-        GeometryReader { geometry in
-            shape
-                .fill(
-                    swiftUIStyle(for: geometry.size),
-                    style: fillStyle
-                )
-                .frame(width: geometry.size.width, height: geometry.size.height)
-        }
+        shape
+            .fill(Color.clear, style: fillStyle)
+            .allowsHitTesting(false)
+            .overlay {
+                GeometryReader { geometry in
+                    shape
+                        .fill(
+                            swiftUIStyle(for: geometry.size),
+                            style: fillStyle
+                        )
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                }
+            }
     }
 
     private func swiftUIStyle(for size: CGSize) -> AnyShapeStyle {

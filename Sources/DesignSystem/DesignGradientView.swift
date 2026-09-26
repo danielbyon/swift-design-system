@@ -221,7 +221,7 @@ private func drawAngularGradient(
     let sweep = abs(authoredSpan)
     let renderingStart: CGFloat
     if isNegativeOversweep {
-        renderingStart = gradient.startAngle.radians
+        renderingStart = gradient.endAngle.radians
     } else if isReversed {
         renderingStart = gradient.endAngle.radians
     } else {

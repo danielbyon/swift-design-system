@@ -204,7 +204,6 @@ public func validateGradients<System: GradientDesignSystem>(in designSystem: Sys
         switch gradient.resolve(for: .dark) {
         case .linear, .angular:
             _ = gradient.resolve(in: darkEnvironment)
-            _ = Rectangle().fill(gradient.anyShapeStyle)
         case .radial:
             break
         }
