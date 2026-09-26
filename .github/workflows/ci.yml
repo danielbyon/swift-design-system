@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   release-gate:
-    name: 1.0 release readiness
+    name: Release readiness
     runs-on: xcode-27
     steps:
       - name: Check out repository
