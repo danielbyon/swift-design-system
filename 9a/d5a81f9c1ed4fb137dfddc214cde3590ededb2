@@ -1,0 +1,29 @@
+Sources/DesignSystem/DesignGradientView.swift
+  s_5153b6e532f438::t_b01a300b08d239 224
+Tests/DesignSystemTests/GradientCapabilityTests.swift
+  s_5f778104bd2709::t_198f7d140efa0b 174-207,251-259,313,318,321-324,329-332,350-351,356-357,362-363,368-375,380,483-492
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9ad5a81f9c1ed4fb137dfddc214cde3590ededb2",
+  "prompts": {},
+  "sessions": {
+    "s_5153b6e532f438": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0da23-5fce-7131-bdb6-e96d46cca9e8",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    },
+    "s_5f778104bd2709": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0da2c-d0a3-7782-b021-7cc1789434b5",
+        "model": "unknown"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
