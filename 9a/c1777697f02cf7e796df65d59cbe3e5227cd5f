@@ -1,0 +1,32 @@
+README.md
+  s_5c955de865051c::t_4b73279e45a479 8
+  s_5c955de865051c::t_a4b28f22a2bf87 9-13
+  s_5c955de865051c::t_776cb6375c7a48 1-7,14-60,67-73
+  s_5c955de865051c::t_a40c7162c531b7 61-66
+docs/governance.md
+  s_5c955de865051c::t_776cb6375c7a48 1-8
+docs/release-policy.md
+  s_5c955de865051c::t_776cb6375c7a48 1-19
+  s_5c955de865051c::t_a4b28f22a2bf87 20-25
+  s_5c955de865051c::t_0f2cf4178a94ad 26-27
+.github/workflows/ci.yml
+  s_5c955de865051c::t_b3c84f68e33abf 14-15,21-22
+Makefile
+  s_5c955de865051c::t_b3c84f68e33abf 1,10,34-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9ac1777697f02cf7e796df65d59cbe3e5227cd5f",
+  "prompts": {},
+  "sessions": {
+    "s_5c955de865051c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0df82-922a-76f0-b69e-7c6dd853a274",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
