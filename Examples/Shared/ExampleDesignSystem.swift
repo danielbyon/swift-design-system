@@ -7,53 +7,63 @@ import UIKit
 import AppKit
 #endif
 
-private enum ExampleSpacing: SpacingToken {
+/// Spacing roles used by the shared example feature.
+enum ExampleSpacing: SpacingToken {
     case screenInset
     case sectionGap
     case contentGap
 }
 
-private enum ExampleDimension: DimensionToken {
+/// One-dimensional layout measurements used by the shared example feature.
+enum ExampleDimension: DimensionToken {
     case headerHeight
     case captionHeight
+    #if canImport(AppKit)
+    /// Width of the native detail row shown by the AppKit host.
+    case detailPanelWidth
+    #endif
 }
 
-private enum ExampleSize: SizeToken {
+enum ExampleSize: SizeToken {
     case featureCard
 }
 
-private enum ExampleCornerRadius: CornerRadiusToken {
+enum ExampleCornerRadius: CornerRadiusToken {
     case card
 }
 
-private enum ExampleStrokeWidth: StrokeWidthToken {
+enum ExampleStrokeWidth: StrokeWidthToken {
     case cardOutline
 }
 
-private enum ExampleOpacity: OpacityToken {
+enum ExampleOpacity: OpacityToken {
     case secondaryContent
 }
 
-private enum ExamplePrimitiveColor: PrimitiveColorToken {
+enum ExamplePrimitiveColor: PrimitiveColorToken {
     case numericInk
     case paper
     case nativeAccent
     case assetAccent
 }
 
-private enum ExampleSemanticColor: SemanticColorToken {
+enum ExampleSemanticColor: SemanticColorToken {
     case primaryText
     case surface
     case accent
 }
 
-private enum ExampleGradientToken: GradientToken {
+enum ExampleGradientToken: GradientToken {
     case featureLinear
     case featureRadial
     case featureAngular
 }
 
-private struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, SizeDesignSystem,
+/// The immutable app-owned vocabulary and resolver shared by every example host.
+///
+/// The concrete value keeps color, gradient, and scalar choices in the example app. The package
+/// supplies capability interfaces and rendering mechanics only.
+struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, SizeDesignSystem,
     CornerRadiusDesignSystem, StrokeWidthDesignSystem, OpacityDesignSystem, GradientDesignSystem {
     typealias Spacing = ExampleSpacing
     typealias Dimension = ExampleDimension
@@ -64,6 +74,9 @@ private struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, 
     typealias Primitive = ExamplePrimitiveColor
     typealias Semantic = ExampleSemanticColor
     typealias Gradient = ExampleGradientToken
+
+    /// The default example configuration supplied by the app-owned SwiftUI environment.
+    static let standard = Self()
 
     let gradientTheme = GradientTheme<
         ExamplePrimitiveColor,
@@ -186,6 +199,10 @@ private struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, 
             28
         case .captionHeight:
             20
+        #if canImport(AppKit)
+        case .detailPanelWidth:
+            320
+        #endif
         }
     }
 
@@ -218,32 +235,7 @@ private struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, 
     }
 }
 
-#if canImport(UIKit) && !os(watchOS)
-private struct ExampleNativeGradientView: UIViewRepresentable {
-    let gradient: DesignGradient
-
-    func makeUIView(context: Context) -> DesignGradientView {
-        DesignGradientView(gradient: gradient)
-    }
-
-    func updateUIView(_ view: DesignGradientView, context: Context) {
-        view.gradient = gradient
-    }
-}
-#elseif canImport(AppKit)
-private struct ExampleNativeGradientView: NSViewRepresentable {
-    let gradient: DesignGradient
-
-    func makeNSView(context: Context) -> DesignGradientView {
-        DesignGradientView(gradient: gradient)
-    }
-
-    func updateNSView(_ view: DesignGradientView, context: Context) {
-        view.gradient = gradient
-    }
-}
-#endif
-
+/// Builds the app's system-aware accent source on UIKit and AppKit platforms.
 private func nativeDynamicAccentColor() -> PlatformColor {
     #if canImport(UIKit) && os(watchOS)
     UIColor(Color.accentColor)
@@ -260,6 +252,7 @@ private func nativeDynamicAccentColor() -> PlatformColor {
     #endif
 }
 
+/// Loads the example asset-catalog color while keeping that resource app-owned.
 private func assetAccentColor() -> PlatformColor {
     #if canImport(UIKit)
     UIColor(Color(.exampleAccent))
@@ -268,77 +261,4 @@ private func assetAccentColor() -> PlatformColor {
     #else
     Color(.exampleAccent)
     #endif
-}
-
-@main
-struct DesignSystemExampleApp: App {
-    private let designSystem = ExampleDesignSystem()
-
-    var body: some Scene {
-        WindowGroup {
-            let cardSize = designSystem.size(for: .featureCard)
-            let cardRadius = designSystem.cornerRadius(for: .card)
-            let linearGradient = designSystem.gradient(for: .featureLinear)
-            let radialGradient = designSystem.gradient(for: .featureRadial)
-            let angularGradient = designSystem.gradient(for: .featureAngular)
-
-            VStack(alignment: .leading, spacing: designSystem.spacing(for: .sectionGap)) {
-                Text("DesignSystem example host")
-
-                VStack(alignment: .leading, spacing: designSystem.spacing(for: .contentGap)) {
-                    Text("Scalar capabilities and semantic colors")
-                        .font(.headline)
-                        .foregroundStyle(designSystem.color(for: .primaryText))
-                        .frame(height: designSystem.dimension(for: .headerHeight))
-                    Text("Logical-point layout values come from the app's design system.")
-                        .foregroundStyle(designSystem.color(for: .primaryText))
-                        .opacity(designSystem.opacity(for: .secondaryContent))
-                        .frame(height: designSystem.dimension(for: .captionHeight))
-                    Text("Native dynamic and asset-backed color sources")
-                        .foregroundStyle(designSystem.color(for: .accent))
-                    HStack(spacing: designSystem.spacing(for: .contentGap)) {
-                        RoundedRectangle(cornerRadius: cardRadius)
-                            .fill(linearGradient)
-                        RoundedRectangle(cornerRadius: cardRadius)
-                            .fill(radialGradient)
-                        RoundedRectangle(cornerRadius: cardRadius)
-                            .fill(angularGradient)
-                    }
-                        .frame(height: 48)
-                        .accessibilityElement(children: .ignore)
-                        .accessibilityLabel("Linear, radial, and angular semantic gradients")
-                    #if canImport(UIKit) && !os(watchOS)
-                    ExampleNativeGradientView(gradient: angularGradient)
-                        .frame(height: 48)
-                        .clipShape(RoundedRectangle(cornerRadius: cardRadius))
-                        .accessibilityLabel("Native angular semantic gradient")
-                    #elseif canImport(AppKit)
-                    ExampleNativeGradientView(gradient: angularGradient)
-                        .frame(height: 48)
-                        .clipShape(RoundedRectangle(cornerRadius: cardRadius))
-                        .accessibilityLabel("Native angular semantic gradient")
-                    #endif
-                }
-                .frame(
-                    maxWidth: cardSize.width,
-                    minHeight: cardSize.height,
-                    maxHeight: cardSize.height,
-                    alignment: .leading
-                )
-                .padding(designSystem.spacing(for: .contentGap))
-                .background {
-                    RoundedRectangle(cornerRadius: cardRadius)
-                        .fill(designSystem.color(for: .surface))
-                }
-                .overlay {
-                    RoundedRectangle(cornerRadius: cardRadius)
-                        .stroke(
-                            designSystem.color(for: .primaryText),
-                            lineWidth: designSystem.strokeWidth(for: .cardOutline)
-                        )
-                }
-            }
-            .padding(designSystem.spacing(for: .screenInset))
-        }
-    }
 }

@@ -6,11 +6,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		000000000000000000000020 /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* ExampleApp.swift */; };
-		000000000000000000000021 /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* ExampleApp.swift */; };
-		000000000000000000000022 /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* ExampleApp.swift */; };
-		000000000000000000000023 /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* ExampleApp.swift */; };
-		000000000000000000000024 /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* ExampleApp.swift */; };
+		000000000000000000000220 /* ExampleDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000200 /* ExampleDesignSystem.swift */; };
+		000000000000000000000221 /* ExampleDesignSystemEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000201 /* ExampleDesignSystemEnvironment.swift */; };
+		000000000000000000000222 /* ExampleFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000202 /* ExampleFeatureView.swift */; };
+		000000000000000000000223 /* iOSExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000203 /* iOSExampleApp.swift */; };
+		000000000000000000000224 /* ExampleDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000200 /* ExampleDesignSystem.swift */; };
+		000000000000000000000225 /* ExampleDesignSystemEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000201 /* ExampleDesignSystemEnvironment.swift */; };
+		000000000000000000000226 /* ExampleFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000202 /* ExampleFeatureView.swift */; };
+		000000000000000000000227 /* macOSExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000204 /* macOSExampleApp.swift */; };
+		000000000000000000000228 /* ExampleDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000200 /* ExampleDesignSystem.swift */; };
+		000000000000000000000229 /* ExampleDesignSystemEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000201 /* ExampleDesignSystemEnvironment.swift */; };
+		000000000000000000000230 /* ExampleFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000202 /* ExampleFeatureView.swift */; };
+		000000000000000000000231 /* tvOSExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000205 /* tvOSExampleApp.swift */; };
+		000000000000000000000232 /* ExampleDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000200 /* ExampleDesignSystem.swift */; };
+		000000000000000000000233 /* ExampleDesignSystemEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000201 /* ExampleDesignSystemEnvironment.swift */; };
+		000000000000000000000234 /* ExampleFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000202 /* ExampleFeatureView.swift */; };
+		000000000000000000000235 /* watchOSExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000206 /* watchOSExampleApp.swift */; };
+		000000000000000000000236 /* ExampleDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000200 /* ExampleDesignSystem.swift */; };
+		000000000000000000000237 /* ExampleDesignSystemEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000201 /* ExampleDesignSystemEnvironment.swift */; };
+		000000000000000000000238 /* ExampleFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000202 /* ExampleFeatureView.swift */; };
+		000000000000000000000239 /* visionOSExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000207 /* visionOSExampleApp.swift */; };
 		000000000000000000000025 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000006 /* Assets.xcassets */; };
 		000000000000000000000026 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000006 /* Assets.xcassets */; };
 		000000000000000000000027 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000006 /* Assets.xcassets */; };
@@ -24,8 +39,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		000000000000000000000005 /* ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleApp.swift; sourceTree = "<group>"; };
 		000000000000000000000006 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		000000000000000000000200 /* ExampleDesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleDesignSystem.swift; sourceTree = "<group>"; };
+		000000000000000000000201 /* ExampleDesignSystemEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleDesignSystemEnvironment.swift; sourceTree = "<group>"; };
+		000000000000000000000202 /* ExampleFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleFeatureView.swift; sourceTree = "<group>"; };
+		000000000000000000000203 /* iOSExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSExampleApp.swift; sourceTree = "<group>"; };
+		000000000000000000000204 /* macOSExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = macOSExampleApp.swift; sourceTree = "<group>"; };
+		000000000000000000000205 /* tvOSExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tvOSExampleApp.swift; sourceTree = "<group>"; };
+		000000000000000000000206 /* watchOSExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = watchOSExampleApp.swift; sourceTree = "<group>"; };
+		000000000000000000000207 /* visionOSExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = visionOSExampleApp.swift; sourceTree = "<group>"; };
 		000000000000000000000010 /* iOSExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		000000000000000000000011 /* macOSExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macOSExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		000000000000000000000012 /* tvOSExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tvOSExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,14 +68,32 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000003 /* Shared */,
+				000000000000000000000008 /* Hosts */,
 				000000000000000000000004 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
 		000000000000000000000003 /* Shared */ = {
 			isa = PBXGroup;
-			children = (000000000000000000000005 /* ExampleApp.swift */, 000000000000000000000006 /* Assets.xcassets */,);
+			children = (
+				000000000000000000000200 /* ExampleDesignSystem.swift */,
+				000000000000000000000201 /* ExampleDesignSystemEnvironment.swift */,
+				000000000000000000000202 /* ExampleFeatureView.swift */,
+				000000000000000000000006 /* Assets.xcassets */,
+			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		000000000000000000000008 /* Hosts */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000203 /* iOSExampleApp.swift */,
+				000000000000000000000204 /* macOSExampleApp.swift */,
+				000000000000000000000205 /* tvOSExampleApp.swift */,
+				000000000000000000000206 /* watchOSExampleApp.swift */,
+				000000000000000000000207 /* visionOSExampleApp.swift */,
+			);
+			path = Hosts;
 			sourceTree = "<group>";
 		};
 		000000000000000000000004 /* Products */ = {
@@ -192,11 +232,11 @@
 /* End PBXBuildConfiguration section */
 
 /* Begin PBXSourcesBuildPhase section */
-		000000000000000000000060 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000020 /* ExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
-		000000000000000000000061 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000021 /* ExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
-		000000000000000000000062 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000022 /* ExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
-		000000000000000000000063 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000023 /* ExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
-		000000000000000000000064 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000024 /* ExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000060 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000220 /* ExampleDesignSystem.swift in Sources */, 000000000000000000000221 /* ExampleDesignSystemEnvironment.swift in Sources */, 000000000000000000000222 /* ExampleFeatureView.swift in Sources */, 000000000000000000000223 /* iOSExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000061 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000224 /* ExampleDesignSystem.swift in Sources */, 000000000000000000000225 /* ExampleDesignSystemEnvironment.swift in Sources */, 000000000000000000000226 /* ExampleFeatureView.swift in Sources */, 000000000000000000000227 /* macOSExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000062 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000228 /* ExampleDesignSystem.swift in Sources */, 000000000000000000000229 /* ExampleDesignSystemEnvironment.swift in Sources */, 000000000000000000000230 /* ExampleFeatureView.swift in Sources */, 000000000000000000000231 /* tvOSExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000063 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000232 /* ExampleDesignSystem.swift in Sources */, 000000000000000000000233 /* ExampleDesignSystemEnvironment.swift in Sources */, 000000000000000000000234 /* ExampleFeatureView.swift in Sources */, 000000000000000000000235 /* watchOSExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
+		000000000000000000000064 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000236 /* ExampleDesignSystem.swift in Sources */, 000000000000000000000237 /* ExampleDesignSystemEnvironment.swift in Sources */, 000000000000000000000238 /* ExampleFeatureView.swift in Sources */, 000000000000000000000239 /* visionOSExampleApp.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCConfigurationList section */
