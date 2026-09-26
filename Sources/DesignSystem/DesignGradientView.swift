@@ -43,6 +43,11 @@ public final class DesignGradientView: UIView {
         observeAppearanceChanges()
     }
 
+    /// Draws the configured gradient into UIKit's current graphics context.
+    ///
+    /// The view's trait collection selects the semantic light or dark definition, and is also used
+    /// to resolve dynamic UIKit colors at draw time. Rendering fills the view's bounds; `rect` is the
+    /// invalidated region supplied by UIKit.
     public override func draw(_ rect: CGRect) {
         guard let gradient, let context = UIGraphicsGetCurrentContext() else { return }
         let appearance: DesignAppearance = traitCollection.userInterfaceStyle == .dark ? .dark : .light
@@ -102,8 +107,14 @@ public final class DesignGradientView: NSView {
         wantsLayer = false
     }
 
+    /// Uses a top-left origin so normalized gradient points follow SwiftUI-style vertical coordinates.
     public override var isFlipped: Bool { true }
 
+    /// Draws the configured gradient into AppKit's current graphics context.
+    ///
+    /// The effective appearance selects the semantic light or dark definition, and AppKit resolves
+    /// dynamic `NSColor` values while that appearance is current. Rendering fills the view's bounds;
+    /// `dirtyRect` is the invalidated region supplied by AppKit.
     public override func draw(_ dirtyRect: NSRect) {
         guard let gradient, let context = NSGraphicsContext.current?.cgContext else { return }
         let appearance: DesignAppearance = effectiveAppearance.bestMatch(from: [.darkAqua, .aqua])
@@ -116,6 +127,10 @@ public final class DesignGradientView: NSView {
         drawResolvedGradient(resolved, colors: colors, in: context, bounds: bounds)
     }
 
+    /// Requests a redraw after the view's effective appearance changes.
+    ///
+    /// A redraw resolves the configured gradient again so semantic light/dark stops follow the new
+    /// appearance.
     public override func viewDidChangeEffectiveAppearance() {
         super.viewDidChangeEffectiveAppearance()
         needsDisplay = true
