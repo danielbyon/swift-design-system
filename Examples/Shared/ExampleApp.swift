@@ -48,7 +48,9 @@ private enum ExampleSemanticColor: SemanticColorToken {
 }
 
 private enum ExampleGradientToken: GradientToken {
-    case feature
+    case featureLinear
+    case featureRadial
+    case featureAngular
 }
 
 private struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, SizeDesignSystem,
@@ -94,7 +96,7 @@ private struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, 
         ),
         gradient: { token in
             switch token {
-            case .feature:
+            case .featureLinear:
                 AdaptiveGradient<ExampleSemanticColor>(
                     light: LinearGradientDefinition(
                         stops: [
@@ -111,6 +113,56 @@ private struct ExampleDesignSystem: SpacingDesignSystem, DimensionDesignSystem, 
                         ],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
+                    )
+                )
+            case .featureRadial:
+                AdaptiveGradient<ExampleSemanticColor>(
+                    light: .radial(
+                        RadialGradientDefinition(
+                            stops: [
+                                GradientStop(semanticColor: .surface, location: 0),
+                                GradientStop(semanticColor: .accent, location: 1),
+                            ],
+                            center: .center,
+                            startRadius: 0,
+                            endRadius: 1
+                        )
+                    ),
+                    dark: .radial(
+                        RadialGradientDefinition(
+                            stops: [
+                                GradientStop(semanticColor: .primaryText, location: 0),
+                                GradientStop(semanticColor: .accent, location: 1),
+                            ],
+                            center: .topTrailing,
+                            startRadius: 0.15,
+                            endRadius: 1.1
+                        )
+                    )
+                )
+            case .featureAngular:
+                AdaptiveGradient<ExampleSemanticColor>(
+                    light: .angular(
+                        AngularGradientDefinition(
+                            stops: [
+                                GradientStop(semanticColor: .surface, location: 0),
+                                GradientStop(semanticColor: .accent, location: 1),
+                            ],
+                            center: .center,
+                            startAngle: GradientAngle.degrees(-90),
+                            endAngle: GradientAngle.degrees(270)
+                        )
+                    ),
+                    dark: .angular(
+                        AngularGradientDefinition(
+                            stops: [
+                                GradientStop(semanticColor: .primaryText, location: 0),
+                                GradientStop(semanticColor: .accent, location: 1),
+                            ],
+                            center: .center,
+                            startAngle: GradientAngle.radians(0),
+                            endAngle: GradientAngle.radians(2 * .pi)
+                        )
                     )
                 )
             }
@@ -226,7 +278,9 @@ struct DesignSystemExampleApp: App {
         WindowGroup {
             let cardSize = designSystem.size(for: .featureCard)
             let cardRadius = designSystem.cornerRadius(for: .card)
-            let featureGradient = designSystem.gradient(for: .feature)
+            let linearGradient = designSystem.gradient(for: .featureLinear)
+            let radialGradient = designSystem.gradient(for: .featureRadial)
+            let angularGradient = designSystem.gradient(for: .featureAngular)
 
             VStack(alignment: .leading, spacing: designSystem.spacing(for: .sectionGap)) {
                 Text("DesignSystem example host")
@@ -242,18 +296,27 @@ struct DesignSystemExampleApp: App {
                         .frame(height: designSystem.dimension(for: .captionHeight))
                     Text("Native dynamic and asset-backed color sources")
                         .foregroundStyle(designSystem.color(for: .accent))
-                    RoundedRectangle(cornerRadius: cardRadius)
-                        .fill(featureGradient)
+                    HStack(spacing: designSystem.spacing(for: .contentGap)) {
+                        RoundedRectangle(cornerRadius: cardRadius)
+                            .fill(linearGradient)
+                        RoundedRectangle(cornerRadius: cardRadius)
+                            .fill(radialGradient)
+                        RoundedRectangle(cornerRadius: cardRadius)
+                            .fill(angularGradient)
+                    }
                         .frame(height: 48)
-                        .accessibilityLabel("Adaptive semantic linear gradient")
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel("Linear, radial, and angular semantic gradients")
                     #if canImport(UIKit) && !os(watchOS)
-                    ExampleNativeGradientView(gradient: featureGradient)
+                    ExampleNativeGradientView(gradient: angularGradient)
                         .frame(height: 48)
                         .clipShape(RoundedRectangle(cornerRadius: cardRadius))
+                        .accessibilityLabel("Native angular semantic gradient")
                     #elseif canImport(AppKit)
-                    ExampleNativeGradientView(gradient: featureGradient)
+                    ExampleNativeGradientView(gradient: angularGradient)
                         .frame(height: 48)
                         .clipShape(RoundedRectangle(cornerRadius: cardRadius))
+                        .accessibilityLabel("Native angular semantic gradient")
                     #endif
                 }
                 .frame(
