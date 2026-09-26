@@ -1,3 +1,11 @@
+/*
+ DesignSystemTestSupport provides Swift Testing helpers for consuming apps' test targets. Each
+ capability validator enumerates its app-owned token vocabulary and exercises public DesignSystem
+ APIs. Scalar validators report every detected issue without changing authored values. Color and
+ gradient validators exercise public appearance and rendering paths; native gradient drawing is
+ isolated to the main actor on platforms that provide UIKit or AppKit.
+ */
+
 import DesignSystem
 import SwiftUI
 import Testing
@@ -175,12 +183,12 @@ public func validateColors<System: ColorDesignSystem>(in designSystem: System) {
 
 /// Validates gradient token enumeration, appearance resolution, and supported SwiftUI style paths.
 ///
-/// The validator visits the complete gradient vocabulary and resolves both appearances through
-/// native-preserving descriptions. It exercises the bounds-aware `Shape.fill(DesignGradient)` path
-/// for every gradient kind and generic ShapeStyle resolution for linear and angular gradients.
-/// Radial gradients are omitted from the generic ShapeStyle path because that API has no rendered
-/// bounds; their generic release fallback is transparent. Native view rendering is actor-isolated
-/// and belongs in platform-specific tests.
+/// The validator visits the complete gradient vocabulary, resolves both appearances through public
+/// native-preserving descriptions, and constructs bounds-aware SwiftUI fills for every gradient kind.
+/// It also resolves generic SwiftUI styles for linear and angular gradients. Radial gradients are
+/// omitted from that generic style path because it has no rendered bounds; their generic release
+/// fallback is transparent. Native `DesignGradientView` drawing is available separately through
+/// `validateNativeGradients(in:)` on supported platforms.
 ///
 /// - Parameter designSystem: The app-owned design system whose semantic gradients are exercised.
 public func validateGradients<System: GradientDesignSystem>(in designSystem: System) {
@@ -191,12 +199,13 @@ public func validateGradients<System: GradientDesignSystem>(in designSystem: Sys
 
     for token in System.Gradient.allCases {
         let gradient = designSystem.gradient(for: token)
-        _ = Rectangle().fill(gradient)
+        _ = Rectangle().fill(gradient).environment(\.colorScheme, .light)
+        _ = Rectangle().fill(gradient).environment(\.colorScheme, .dark)
 
         switch gradient.resolve(for: .light) {
         case .linear, .angular:
             _ = gradient.resolve(in: lightEnvironment)
-            _ = Rectangle().fill(gradient.anyShapeStyle)
+            _ = Rectangle().fill(gradient.anyShapeStyle).environment(\.colorScheme, .light)
         case .radial:
             break
         }
@@ -204,8 +213,86 @@ public func validateGradients<System: GradientDesignSystem>(in designSystem: Sys
         switch gradient.resolve(for: .dark) {
         case .linear, .angular:
             _ = gradient.resolve(in: darkEnvironment)
+            _ = Rectangle().fill(gradient.anyShapeStyle).environment(\.colorScheme, .dark)
         case .radial:
             break
         }
     }
 }
+
+#if canImport(UIKit) && !os(watchOS)
+/// Smoke-renders every semantic gradient through the public native view in light and dark styles.
+///
+/// Use this main-actor helper from consumer tests that can exercise UIKit. It draws into temporary
+/// images to execute native rendering without comparing pixels or requiring golden fixtures.
+///
+/// - Parameter designSystem: The app-owned design system whose semantic gradients are rendered.
+@MainActor
+public func validateNativeGradients<System: GradientDesignSystem>(in designSystem: System) {
+    let size = CGSize(width: 64, height: 64)
+    let renderer = UIGraphicsImageRenderer(size: size)
+
+    for token in System.Gradient.allCases {
+        let view = DesignGradientView(gradient: designSystem.gradient(for: token))
+        view.frame = CGRect(origin: .zero, size: size)
+
+        for style in [UIUserInterfaceStyle.light, .dark] {
+            view.overrideUserInterfaceStyle = style
+            _ = renderer.image { _ in
+                view.draw(view.bounds)
+            }
+        }
+    }
+}
+#elseif canImport(AppKit)
+/// Smoke-renders every semantic gradient through the public native view in light and dark appearances.
+///
+/// Use this main-actor helper from consumer tests that can exercise AppKit. It draws into temporary
+/// bitmaps to execute native rendering without comparing pixels or requiring golden fixtures.
+///
+/// - Parameter designSystem: The app-owned design system whose semantic gradients are rendered.
+@MainActor
+public func validateNativeGradients<System: GradientDesignSystem>(in designSystem: System) {
+    let size = CGSize(width: 64, height: 64)
+    let appearances: [(NSAppearance.Name, String)] = [(.aqua, "light"), (.darkAqua, "dark")]
+
+    for token in System.Gradient.allCases {
+        let view = DesignGradientView(gradient: designSystem.gradient(for: token))
+        view.frame = CGRect(origin: .zero, size: size)
+
+        for (appearanceName, label) in appearances {
+            guard let appearance = NSAppearance(named: appearanceName) else {
+                Issue.record("AppKit \(label) appearance must be available for gradient rendering.")
+                continue
+            }
+            view.appearance = appearance
+
+            guard let bitmap = NSBitmapImageRep(
+                bitmapDataPlanes: nil,
+                pixelsWide: Int(size.width),
+                pixelsHigh: Int(size.height),
+                bitsPerSample: 8,
+                samplesPerPixel: 4,
+                hasAlpha: true,
+                isPlanar: false,
+                colorSpaceName: .deviceRGB,
+                bytesPerRow: 0,
+                bitsPerPixel: 0
+            ), let context = NSGraphicsContext(bitmapImageRep: bitmap)
+            else {
+                Issue.record("AppKit must create a bitmap context for gradient rendering.")
+                continue
+            }
+
+            let previousContext = NSGraphicsContext.current
+            defer { NSGraphicsContext.current = previousContext }
+            context.cgContext.saveGState()
+            defer { context.cgContext.restoreGState() }
+            context.cgContext.translateBy(x: 0, y: size.height)
+            context.cgContext.scaleBy(x: 1, y: -1)
+            NSGraphicsContext.current = context
+            view.draw(view.bounds)
+        }
+    }
+}
+#endif
