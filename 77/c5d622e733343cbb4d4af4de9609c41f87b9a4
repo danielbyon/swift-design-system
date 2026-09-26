@@ -1,0 +1,28 @@
+Sources/DesignSystemTestSupport/DesignSystemTestSupport.swift
+  s_e8f9f3e843f3c8::t_d0f890ed8283ca 1-8
+  s_e8f9f3e843f3c8::t_890fbb6e63f616 186-191,202-203,208,216,222-298
+Tests/DesignSystemTests/GradientCapabilityTests.swift
+  s_e8f9f3e843f3c8::t_9241bee4b23888 1166-1167,1171-1184
+  s_e8f9f3e843f3c8::t_f4b63a87087733 684-698,700-709,711-748
+  s_e8f9f3e843f3c8::t_2e125a3c9bf2d1 699,710
+  s_e8f9f3e843f3c8::t_3bb8fa9b705055 930,932-933,935,945-949,966,968-980,982,984,986,988,995-998,1000-1001,1003-1014,1016-1050,1053-1063
+  s_e8f9f3e843f3c8::t_b6a19b95bc7bb2 987,994,999
+  s_e8f9f3e843f3c8::t_6da2e1526dfc0f 1015,1051-1052
+  s_e8f9f3e843f3c8::t_a42602b438701a 1185
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "77c5d622e733343cbb4d4af4de9609c41f87b9a4",
+  "prompts": {},
+  "sessions": {
+    "s_e8f9f3e843f3c8": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0dc19-32d6-7281-b386-146a8fa65209",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
