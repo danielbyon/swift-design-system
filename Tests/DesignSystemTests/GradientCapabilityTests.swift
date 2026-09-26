@@ -681,6 +681,71 @@ private func makeGradient(for definition: GradientDefinition<FixtureSemanticColo
     ).gradient(for: .hero)
 }
 
+
+private func resolvedStops(for gradient: DesignGradient) -> [ResolvedLinearGradient.Stop] {
+    switch gradient.resolve(for: .light) {
+    case let .linear(value):
+        return value.stops
+    case let .radial(value):
+        return value.stops
+    case let .angular(value):
+        return value.stops
+    }
+}
+
+@MainActor
+private func smokeRenderGradient(_ gradient: DesignGradient) {
+    #if canImport(UIKit) && !os(watchOS)
+    let size = CGSize(width: 64, height: 64)
+    let view = DesignGradientView(gradient: gradient)
+    view.frame = CGRect(origin: .zero, size: size)
+    let renderer = UIGraphicsImageRenderer(size: size)
+    for style in [UIUserInterfaceStyle.light, .dark] {
+        view.overrideUserInterfaceStyle = style
+        _ = renderer.image { _ in
+            view.draw(view.bounds)
+        }
+    }
+    #elseif canImport(AppKit)
+    let size = CGSize(width: 64, height: 64)
+    let view = DesignGradientView(gradient: gradient)
+    view.frame = CGRect(origin: .zero, size: size)
+    for name in [NSAppearance.Name.aqua, .darkAqua] {
+        guard let appearance = NSAppearance(named: name) else {
+            Issue.record("AppKit appearance must be available for gradient recovery rendering.")
+            continue
+        }
+        view.appearance = appearance
+
+        guard let bitmap = NSBitmapImageRep(
+            bitmapDataPlanes: nil,
+            pixelsWide: Int(size.width),
+            pixelsHigh: Int(size.height),
+            bitsPerSample: 8,
+            samplesPerPixel: 4,
+            hasAlpha: true,
+            isPlanar: false,
+            colorSpaceName: .deviceRGB,
+            bytesPerRow: 0,
+            bitsPerPixel: 0
+        ), let context = NSGraphicsContext(bitmapImageRep: bitmap)
+        else {
+            Issue.record("AppKit must create a bitmap context for gradient recovery rendering.")
+            continue
+        }
+
+        let previousContext = NSGraphicsContext.current
+        defer { NSGraphicsContext.current = previousContext }
+        context.cgContext.saveGState()
+        defer { context.cgContext.restoreGState() }
+        context.cgContext.translateBy(x: 0, y: size.height)
+        context.cgContext.scaleBy(x: 1, y: -1)
+        NSGraphicsContext.current = context
+        view.draw(view.bounds)
+    }
+    #endif
+}
+
 private func makeMonochromeGradient(
     for definition: GradientDefinition<FixtureSemanticColor>
 ) -> DesignGradient {
@@ -862,9 +927,12 @@ func radialAndAngularDefinitionsNormalizeOneStopAndKeepEmptyStopsEmptyUntilResol
 
 #if !DEBUG
 @Test
+@MainActor
 func malformedGradientGeometryAndStopsRecoverDeterministicallyInRelease() {
-    let point = GradientPoint(x: -0.25, y: .infinity)
+    let point = GradientPoint(x: .infinity, y: .nan)
+    let finiteOutsidePoint = GradientPoint(x: -0.25, y: 1.25)
     let angle = GradientAngle.degrees(.nan)
+    let endAngle = GradientAngle.radians(.infinity)
     let stops = [
         GradientStop(semanticColor: FixtureSemanticColor.content, location: 0.8),
         GradientStop(semanticColor: .accent, location: 0.2),
@@ -874,6 +942,11 @@ func malformedGradientGeometryAndStopsRecoverDeterministicallyInRelease() {
         GradientStop(semanticColor: .accent, location: 1.5),
     ]
     #expect(stops.map(\.location) == [0.8, 0.2, 0.2, 0, 0, 1])
+    let linear = LinearGradientDefinition(
+        stops: stops,
+        startPoint: point,
+        endPoint: finiteOutsidePoint
+    )
     let radial = RadialGradientDefinition(
         stops: stops,
         center: point,
@@ -890,21 +963,104 @@ func malformedGradientGeometryAndStopsRecoverDeterministicallyInRelease() {
         stops: stops,
         center: point,
         startAngle: angle,
-        endAngle: GradientAngle.radians(0)
+        endAngle: endAngle
     )
+    let linearGradient = makeGradient(for: .linear(linear))
+    let radialGradient = makeGradient(for: .radial(radial))
+    let invertedGradient = makeGradient(for: .radial(invertedRadii))
+    let angularGradient = makeGradient(for: .angular(angular))
 
-    #expect(point.x == -0.25)
+    guard case let .linear(resolvedLinear) = linearGradient.resolve(for: .light),
+          case let .radial(resolvedRadial) = radialGradient.resolve(for: .light),
+          case let .radial(resolvedInvertedRadii) = invertedGradient.resolve(for: .light),
+          case let .angular(resolvedAngular) = angularGradient.resolve(for: .light)
+    else {
+        Issue.record("Recovered public gradient values must preserve their gradient kinds.")
+        return
+    }
+
+    #expect(point.x == 0)
     #expect(point.y == 0)
+    #expect(finiteOutsidePoint == GradientPoint(x: -0.25, y: 1.25))
     #expect(angle.radians == 0)
+    #expect(endAngle.radians == 0)
+    #expect(resolvedLinear.startPoint == point)
+    #expect(resolvedLinear.endPoint == finiteOutsidePoint)
     #expect(radial.startRadius == 0)
     #expect(radial.endRadius == 0)
     #expect(invertedRadii.startRadius == 0.75)
     #expect(invertedRadii.endRadius == 0.75)
     #expect(angular.startAngle.radians == 0)
+    #expect(resolvedRadial.center == point)
+    #expect(resolvedRadial.startRadius == 0)
+    #expect(resolvedRadial.endRadius == 0)
+    #expect(resolvedInvertedRadii.startRadius == 0.75)
+    #expect(resolvedInvertedRadii.endRadius == 0.75)
+    #expect(resolvedAngular.center == point)
+    #expect(resolvedAngular.startAngle.radians == 0)
+    #expect(resolvedAngular.endAngle.radians == 0)
     #expect(radial.stops.map(\.location) == [0, 0, 0.2, 0.2, 0.8, 1])
-    #expect(String(describing: radial.stops[1].semanticColor) == "content")
-    #expect(String(describing: radial.stops[2].semanticColor) == "accent")
-    #expect(String(describing: radial.stops[3].semanticColor) == "content")
+    #expect(resolvedRadial.stops.map(\.location) == [0, 0, 0.2, 0.2, 0.8, 1])
+
+    let colorSystem = FixtureGradientDesignSystem()
+    let expectedColors = [
+        colorSystem.color(for: .accent).resolve(for: .light).cgColor,
+        colorSystem.color(for: .content).resolve(for: .light).cgColor,
+        colorSystem.color(for: .accent).resolve(for: .light).cgColor,
+        colorSystem.color(for: .content).resolve(for: .light).cgColor,
+        colorSystem.color(for: .content).resolve(for: .light).cgColor,
+        colorSystem.color(for: .accent).resolve(for: .light).cgColor,
+    ]
+    for (stop, expectedColor) in zip(resolvedRadial.stops, expectedColors) {
+        #expect(stop.color.cgColor == expectedColor)
+    }
+
+    for gradient in [linearGradient, radialGradient, invertedGradient, angularGradient] {
+        smokeRenderGradient(gradient)
+    }
+}
+
+@Test @MainActor
+func oneStopAndEmptyGradientsRecoverThroughPublicResolutionInRelease() {
+    let oneStop = GradientStop(semanticColor: FixtureSemanticColor.accent, location: 0.4)
+    let oneStopDefinitions: [GradientDefinition<FixtureSemanticColor>] = [
+        .linear(stops: [oneStop], startPoint: .leading, endPoint: .trailing),
+        .radial(stops: [oneStop], center: .center, startRadius: 0, endRadius: 1),
+        .angular(
+            stops: [oneStop],
+            center: .center,
+            startAngle: .degrees(0),
+            endAngle: .degrees(180)
+        ),
+    ]
+    let emptyDefinitions: [GradientDefinition<FixtureSemanticColor>] = [
+        .linear(stops: [], startPoint: .leading, endPoint: .trailing),
+        .radial(stops: [], center: .center, startRadius: 0, endRadius: 1),
+        .angular(stops: [], center: .center, startAngle: .degrees(0), endAngle: .degrees(180)),
+    ]
+    let accent = FixtureGradientDesignSystem()
+        .color(for: .accent)
+        .resolve(for: .light)
+        .cgColor
+
+    for definition in oneStopDefinitions {
+        let gradient = makeGradient(for: definition)
+        let stops = resolvedStops(for: gradient)
+
+        #expect(stops.map(\.location) == [0, 1])
+        #expect(stops[0].color.cgColor == accent)
+        #expect(stops[0].color.cgColor == stops[1].color.cgColor)
+        smokeRenderGradient(gradient)
+    }
+
+    for definition in emptyDefinitions {
+        let gradient = makeGradient(for: definition)
+        let stops = resolvedStops(for: gradient)
+
+        #expect(stops.map(\.location) == [0, 1])
+        #expect(stops.allSatisfy { $0.color.cgColor.alpha == 0 })
+        smokeRenderGradient(gradient)
+    }
 }
 #endif
 
@@ -1007,10 +1163,25 @@ func gradientValidatorExercisesEveryAppGradientToken() {
     validateGradients(in: designSystem)
 
     #expect(
-        Set(recorder.tokens.map(String.init(describing:)))
-            == Set(FixtureGradientToken.allCases.map(String.init(describing:)))
+        recorder.tokens.map(String.init(describing:))
+            == FixtureGradientToken.allCases.map(String.init(describing:))
     )
 }
+
+#if canImport(UIKit) && !os(watchOS) || canImport(AppKit)
+@Test @MainActor
+func nativeGradientValidatorExercisesEveryAppGradientTokenOnce() {
+    let recorder = GradientTokenRecorder()
+    let designSystem = FixtureGradientDesignSystem(onResolveGradient: recorder.record)
+
+    validateNativeGradients(in: designSystem)
+
+    #expect(
+        recorder.tokens.map(String.init(describing:))
+            == FixtureGradientToken.allCases.map(String.init(describing:))
+    )
+}
+#endif
 
 #if canImport(UIKit) && !os(watchOS)
 @MainActor
