@@ -1,0 +1,45 @@
+Tests/DesignSystemSnapshotTests/UIKitSnapshotTests.swift
+  s_3facffe908d5e0::t_ede8117882fde4 1-104,109-134
+  s_3facffe908d5e0::t_d0bdc6711ebce5 105-108
+Makefile
+  s_3facffe908d5e0::t_ce9be4125621ff 1,4,10,13,16-18,20-31
+  s_3facffe908d5e0::t_5f036caa66b6e7 6-9,19
+  s_3facffe908d5e0::t_9dc131cf91eab5 3
+  s_3facffe908d5e0::t_585302d05d20a7 5
+Package.resolved
+  s_3facffe908d5e0::t_a9a9227453fc4c 1-42
+Tests/DesignSystemSnapshotTests/SnapshotFixture.swift
+  s_3facffe908d5e0::t_ede8117882fde4 1-7,9-14,16-75,77-84,86-99,101-118
+  s_3facffe908d5e0::t_95912cf144d111 8,15
+  s_3facffe908d5e0::t_1e27375d8e4e4e 76,85,100
+Tests/DesignSystemSnapshotTests/AppKitSnapshotTests.swift
+  s_3facffe908d5e0::t_ede8117882fde4 1-158
+Package.swift
+  s_3facffe908d5e0::t_1e27375d8e4e4e 40
+  s_3facffe908d5e0::t_ce9be4125621ff 18-23,34-39,41
+Tests/DesignSystemSnapshotTests/SnapshotRecordingMode.swift
+  s_3facffe908d5e0::t_ede8117882fde4 1-7,11,13-18
+  s_3facffe908d5e0::t_5f036caa66b6e7 8-10,12
+Tests/DesignSystemSnapshotTests/SnapshotRecordingModeTests.swift
+  s_3facffe908d5e0::t_ede8117882fde4 1-15
+Tests/DesignSystemSnapshotTests/README.md
+  s_3facffe908d5e0::t_ede8117882fde4 1-4,6-10,12-17
+  s_3facffe908d5e0::t_d0bdc6711ebce5 11
+  s_3facffe908d5e0::t_7a124745fc96f4 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d8811a14bd4bd0173386815e7ef720de2225e6d2",
+  "prompts": {},
+  "sessions": {
+    "s_3facffe908d5e0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0dd27-b20e-74e2-bb60-616c3dc6d40b",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Daniel Byon <daniel@danielbyon.com>"
+    }
+  }
+}
